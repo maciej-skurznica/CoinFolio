@@ -53,7 +53,13 @@ class App extends React.Component {
               darkThemeOn={this.state.darkThemeOn}
             />
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path="/"
+                component={(props) => (
+                  <Home {...props} currentCurrency={this.state.currency} />
+                )}
+              />
               <Route exact path="/coins/:coin" component={Coin} />
               <Route exact path="/portfolio" component={Portfolio} />
               <Route path="*" component={NotFound} />

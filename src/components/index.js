@@ -6,3 +6,8 @@ export { default as Bottom } from "./Navbar/Bottom";
 export { default as Currency } from "./Navbar/Currency";
 export { default as SearchBar } from "./Navbar/SearchBar";
 export { default as BottomSkeleton } from "./Navbar/BottomSkeleton";
+export { default as Table } from "./Table";
+export { default as TableSort } from "./Table/TableSort";
+export { default as TableCoin } from "./Table/TableCoin";
+export { default as TableCoinSkeleton } from "./Table/TableCoinSkeleton";
+export { default as ProgressBarChart } from "./Table/ProgressBarChart";

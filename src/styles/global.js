@@ -9,7 +9,13 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
     background: ${(props) => props.theme.main};
     font-family: Helvetica, Arial, sans-serif;
-    transition: background 0.5s;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 `;
 
