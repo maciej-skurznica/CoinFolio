@@ -13,8 +13,8 @@ export const Container = styled.div`
 `;
 
 export const Value = styled.div`
-  display: flex;
   font-size: 1em;
+  font-size: ${(props) => props.fontSize}em;
   width: ${(props) => props.width}px;
 `;
 

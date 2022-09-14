@@ -41,5 +41,5 @@ export const Fill = styled.div`
 `;
 
 export const CurrencySymbol = styled.div`
-  margin-right: 0.25em;
+  margin-right: 0.15em;
 `;

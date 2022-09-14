@@ -34,11 +34,15 @@ class Table extends React.Component {
         <TableSort />
         {haveData
           ? this.state.coinsData.map((coin) => (
-              <TableCoin data={coin} currentCurrency={this.props.currentCurrency} />
+              <TableCoin
+                key={coin.name}
+                data={coin}
+                currentCurrency={this.props.currentCurrency}
+              />
             ))
           : Array(this.state.numberOfCoins)
               .fill(0)
-              .map((el) => <TableCoinSkeleton />)}
+              .map((el) => <TableCoinSkeleton key={Math.random()} />)}
       </Container>
     );
   }

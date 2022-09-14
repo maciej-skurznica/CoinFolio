@@ -21,7 +21,7 @@ const TableSort = (props) => {
         <Text width={170}>24h VOLUME / MARKET CAP</Text>
         <Text width={170}>CIRCULATING / TOTAL SUPPLY</Text>
       </Div>
-      <Text width={190}>LAST 7d</Text>
+      <Text width={180}>LAST 7d</Text>
     </Container>
   );
 };

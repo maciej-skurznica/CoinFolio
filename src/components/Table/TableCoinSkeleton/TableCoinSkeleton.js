@@ -8,7 +8,7 @@ const TableCoinSkeleton = (props) => {
       <Value>
         <Skeleton width={10} />
       </Value>
-      <Value>
+      <Value fontSize={2.2}>
         <Skeleton width={150} />
       </Value>
       <Value>
@@ -26,15 +26,15 @@ const TableCoinSkeleton = (props) => {
         </Value>
       </Div>
       <Div width={360}>
-        <Value>
+        <Value fontSize={1.7}>
           <Skeleton width={170} />
         </Value>
-        <Value>
+        <Value fontSize={1.7}>
           <Skeleton width={170} />
         </Value>
       </Div>
-      <Value>
-        <Skeleton width={190} />
+      <Value fontSize={2.7}>
+        <Skeleton width={180} />
       </Value>
     </Container>
   );

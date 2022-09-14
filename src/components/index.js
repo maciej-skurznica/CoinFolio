@@ -11,3 +11,4 @@ export { default as TableSort } from "./Table/TableSort";
 export { default as TableCoin } from "./Table/TableCoin";
 export { default as TableCoinSkeleton } from "./Table/TableCoinSkeleton";
 export { default as ProgressBarChart } from "./Table/ProgressBarChart";
+export { default as TableSparkline } from "./Table/TableSparkline";

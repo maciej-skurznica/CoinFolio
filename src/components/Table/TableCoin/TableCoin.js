@@ -1,5 +1,5 @@
 import { availableCurrencies } from "assets/data/data";
-import { ProgressBarChart } from "components";
+import { ProgressBarChart, TableSparkline } from "components";
 import {
   Container,
   CurrencySymbol,
@@ -25,6 +25,7 @@ const TableCoin = (props) => {
     market_cap,
     circulating_supply,
     total_supply,
+    sparkline_in_7d: { price: priceData },
   } = props.data;
 
   return (
@@ -75,7 +76,9 @@ const TableCoin = (props) => {
           />
         </Value>
       </Div>
-      <Value width={190}>LAST 7d</Value>
+      <Value width={180}>
+        <TableSparkline priceData={priceData} width={180} />
+      </Value>
     </Container>
   );
 };
