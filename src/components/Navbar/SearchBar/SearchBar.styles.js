@@ -13,7 +13,7 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.secondary};
   }
   position: relative;
-  z-index: 0;
+  z-index: 1;
 `;
 
 export const SearchIcon = styled.div`

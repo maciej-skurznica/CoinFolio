@@ -17,15 +17,7 @@ export const Container = styled.div`
 export const Text = styled.div`
   display: flex;
   width: ${(props) => `${props.width}px`};
-  justify-content: ${(props) => {
-    if (props.align === "left") {
-      return "flex-start";
-    } else if (props.align === "right") {
-      return "flex-end";
-    } else {
-      return "center";
-    }
-  }};
+  justify-content: ${(props) => (props.align === "left" ? "flex-start" : "center")};
   padding-left: ${(props) => props.margin}em;
   box-sizing: border-box;
 `;

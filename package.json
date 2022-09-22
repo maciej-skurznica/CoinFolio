@@ -46,6 +46,6 @@
     ]
   },
   "devDependencies": {
-    "reactcci": "^1.10.0"
+    "reactcci": "^1.11.0"
   }
 }

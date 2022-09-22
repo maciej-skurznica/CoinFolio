@@ -14,7 +14,7 @@ export const Ticker = styled.div`
 
 export const CurrencyDropdown = styled.div`
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   cursor: auto;
   right: 0;
   border: 1px solid ${({ theme }) => theme.secondary};
