@@ -13,6 +13,36 @@ const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
   const hasData = pricesBTC.length;
   const price = pricesBTC?.[pricesBTC.length - 1]?.[1];
 
+  const tooltipTitles = (data) =>
+    new Date(Number(data[0].label)).toLocaleString(
+      "locales",
+      hourlyInterval
+        ? { dateStyle: "short", timeStyle: "short" }
+        : data[0].dataset.data.length - 1 === data[0].dataIndex
+        ? { timeStyle: "short" }
+        : { dateStyle: "medium" }
+    );
+
+  const tooltipLabels = (data) => {
+    const value = data.parsed.y;
+    return `${data.dataset.label}: ${currencySymbol(currentCurrency)}${value
+      .toFixed(2)
+      .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`;
+  };
+
+  const xScaleTicks = (self, data) => {
+    if (hourlyInterval) {
+      return (
+        new Date(self.getLabelForValue(data)).toLocaleString("locales", {
+          hour: "numeric",
+        }) + ":00"
+      );
+    }
+    return new Date(self.getLabelForValue(data)).toLocaleString("locales", {
+      day: "2-digit",
+    });
+  };
+
   return (
     <Container>
       <Div>
@@ -78,21 +108,8 @@ const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
                   padding: 10,
                   bodyAlign: "center",
                   callbacks: {
-                    title: (context) =>
-                      new Date(Number(context[0].label)).toLocaleString(
-                        "locales",
-                        hourlyInterval
-                          ? { dateStyle: "short", timeStyle: "short" }
-                          : context[0].dataset.data.length - 1 === context[0].dataIndex
-                          ? { timeStyle: "short" }
-                          : { dateStyle: "medium" }
-                      ),
-                    label: (context) => {
-                      const value = context.parsed.y;
-                      return `${context.dataset.label}: ${currencySymbol(
-                        currentCurrency
-                      )}${value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`;
-                    },
+                    title: (context) => tooltipTitles(context),
+                    label: (context) => tooltipLabels(context),
                   },
                 },
               },
@@ -108,20 +125,8 @@ const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
                     autoSkipPadding: 15,
                     maxRotation: 0,
                     callback: function (value) {
-                      if (hourlyInterval) {
-                        return (
-                          new Date(this.getLabelForValue(value)).toLocaleString(
-                            "locales",
-                            {
-                              hour: "numeric",
-                            }
-                          ) + ":00"
-                        );
-                      }
-                      return new Date(this.getLabelForValue(value)).toLocaleString(
-                        "locales",
-                        { day: "2-digit" }
-                      );
+                      const self = this;
+                      return xScaleTicks(self, value);
                     },
                   },
                 },
