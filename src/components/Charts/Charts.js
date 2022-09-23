@@ -26,15 +26,12 @@ class Charts extends React.Component {
   }
 
   fetchData = async () => {
+    const { days, interval } = timeFrames[this.state.activeButton];
     try {
       const {
         data: { prices, total_volumes },
       } = await axios(
-        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${
-          this.props.currentCurrency
-        }&days=${timeFrames[this.state.activeButton].days}&interval=${
-          timeFrames[this.state.activeButton].interval
-        }`
+        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${this.props.currentCurrency}&days=${days}&interval=${interval}`
       );
       this.setState({
         pricesBTC: prices,

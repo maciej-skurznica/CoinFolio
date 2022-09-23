@@ -6,42 +6,17 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ValueWithCurrencySymbol } from "components";
 import { ChartContainer, Container, Div, Text, Value } from "./BitcoinChart.styles";
-import { currencySymbol } from "../../../utils/currencySymbol";
 import { roundToTwoDecimal } from "../../../utils/roundToTwoDecimal";
+import {
+  tooltipLabels,
+  tooltipTitles,
+  xScaleTicks,
+} from "../../../utils/chartsCallbacks";
 
 const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
   const hasData = pricesBTC.length;
   const price = pricesBTC?.[pricesBTC.length - 1]?.[1];
-
-  const tooltipTitles = (data) =>
-    new Date(Number(data[0].label)).toLocaleString(
-      "locales",
-      hourlyInterval
-        ? { dateStyle: "short", timeStyle: "short" }
-        : data[0].dataset.data.length - 1 === data[0].dataIndex
-        ? { timeStyle: "short" }
-        : { dateStyle: "medium" }
-    );
-
-  const tooltipLabels = (data) => {
-    const value = data.parsed.y;
-    return `${data.dataset.label}: ${currencySymbol(currentCurrency)}${value
-      .toFixed(2)
-      .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`;
-  };
-
-  const xScaleTicks = (self, data) => {
-    if (hourlyInterval) {
-      return (
-        new Date(self.getLabelForValue(data)).toLocaleString("locales", {
-          hour: "numeric",
-        }) + ":00"
-      );
-    }
-    return new Date(self.getLabelForValue(data)).toLocaleString("locales", {
-      day: "2-digit",
-    });
-  };
+  const isPriceTrendUp = pricesBTC?.[0]?.[1] < pricesBTC?.[pricesBTC.length - 1]?.[1];
 
   return (
     <Container>
@@ -69,17 +44,12 @@ const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
                 {
                   label: "Price",
                   data: pricesBTC.map((el) => roundToTwoDecimal(el[1])),
-                  borderColor:
-                    pricesBTC[0][1] > pricesBTC[pricesBTC.length - 1][1]
-                      ? "rgb(209,78,77)"
-                      : "rgb(42,141,120)",
+                  borderColor: isPriceTrendUp ? "rgb(42,141,120)" : "rgb(209,78,77)",
                   backgroundColor: (context) => {
                     const gradient = context.chart.ctx.createLinearGradient(0, 0, 0, 400);
                     gradient.addColorStop(
                       0,
-                      pricesBTC[0][1] > pricesBTC[pricesBTC.length - 1][1]
-                        ? "rgba(209,78,77,0.5)"
-                        : "rgba(42,141,120,0.5)"
+                      isPriceTrendUp ? "rgba(42,141,120,0.5)" : "rgba(209,78,77,0.5)"
                     );
                     gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
                     return gradient;
@@ -108,8 +78,8 @@ const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
                   padding: 10,
                   bodyAlign: "center",
                   callbacks: {
-                    title: (context) => tooltipTitles(context),
-                    label: (context) => tooltipLabels(context),
+                    title: (context) => tooltipTitles(context, hourlyInterval),
+                    label: (context) => tooltipLabels(context, currentCurrency),
                   },
                 },
               },
@@ -125,8 +95,8 @@ const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
                     autoSkipPadding: 15,
                     maxRotation: 0,
                     callback: function (value) {
-                      const self = this;
-                      return xScaleTicks(self, value);
+                      const that = this;
+                      return xScaleTicks(that, value, hourlyInterval);
                     },
                   },
                 },
