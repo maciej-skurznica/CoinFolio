@@ -14,14 +14,10 @@ export const Container = styled.div`
   justify-content: space-between;
   margin: 0 1.2rem 4px;
   border-radius: 5px;
-  transition: height 0.4s, margin 0.4s, box-shadow 0.4s;
-  transition-timing-function: ease-out;
   :hover {
-    box-shadow: rgb(255, 165, 0, 0.07) 0px -13px 20px 0px inset,
-      rgb(255, 165, 0, 0.15) 0px -16px 30px 0px inset,
-      rgb(255, 165, 0, 0.1) 0px 0px 4px 0px inset;
-    height: 3.6rem;
     margin: 0 0.8rem 4px;
+    max-width: calc(1800px + 0.8rem);
+    width: calc(100% - 1.6rem);
   }
 `;
 
