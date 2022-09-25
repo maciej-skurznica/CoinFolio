@@ -23,7 +23,10 @@ export const Menu = styled.div`
 
 export const StyledLink = styled(Link)`
   font-size: 1.1em;
-  height: 2.7em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   padding: 0.8em 1.2em;
   text-decoration: none;
   color: ${({ theme }) => theme.contrast};
