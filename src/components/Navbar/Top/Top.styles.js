@@ -3,11 +3,14 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100vw;
+  display: flex;
+  justify-content: center;
   background: ${({ theme }) => theme.secondary};
 `;
 
 export const Div = styled.div`
-  max-width: 1900px;
+  width: 1800px;
+  margin: 0 1.2em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +25,7 @@ export const StyledLink = styled(Link)`
   font-weight: bold;
   font-size: 1.1em;
   margin: 0.3em 0;
-  margin-left: 1.2em;
+  /* margin-left: 1.2em; */
   text-decoration: none;
   color: ${({ theme }) => theme.contrast};
   :hover {

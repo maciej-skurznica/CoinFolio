@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100vw;
+  display: flex;
+  justify-content: center;
   background: ${({ theme }) => theme.secondary};
 `;
 
 export const Div = styled.div`
-  max-width: 1900px;
+  width: 1800px;
   display: flex;
   justify-content: center;
   align-items: center;

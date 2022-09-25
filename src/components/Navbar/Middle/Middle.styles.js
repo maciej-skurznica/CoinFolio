@@ -2,7 +2,14 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  max-width: 1900px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Div = styled.div`
+  width: 1800px;
+  margin: 0 1.2em;
   display: flex;
   justify-content: space-between;
   align-items: center;
