@@ -12,3 +12,8 @@ export { default as TableCoin } from "./Table/TableCoin";
 export { default as TableCoinSkeleton } from "./Table/TableCoinSkeleton";
 export { default as ProgressBarChart } from "./Table/ProgressBarChart";
 export { default as TableSparkline } from "./Table/TableSparkline";
+export { default as Charts } from "./Charts";
+export { default as ChartsBottom } from "./Charts/ChartsBottom";
+export { default as ValueWithCurrencySymbol } from "./ValueWithCurrencySymbol";
+export { default as BitcoinChart } from "./Charts/BitcoinChart";
+export { default as VolumeChart } from "./Charts/VolumeChart";
