@@ -1,14 +1,16 @@
 import SearchBar from "../SearchBar";
-import { Container, Menu, StyledLink } from "./Middle.styles";
+import { Container, Div, Menu, StyledLink } from "./Middle.styles";
 
 const Middle = (props) => {
   return (
     <Container>
-      <Menu>
-        <StyledLink to={"/"}>Coins</StyledLink>
-        <StyledLink to={"/"}>Portfolio</StyledLink>
-      </Menu>
-      <SearchBar />
+      <Div>
+        <Menu>
+          <StyledLink to={"/"}>Coins</StyledLink>
+          <StyledLink to={"/"}>Portfolio</StyledLink>
+        </Menu>
+        <SearchBar />
+      </Div>
     </Container>
   );
 };

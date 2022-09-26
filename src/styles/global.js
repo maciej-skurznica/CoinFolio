@@ -4,9 +4,6 @@ import { ToastContainer } from "react-toastify";
 export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: ${(props) => props.theme.main};
     font-family: Helvetica, Arial, sans-serif;
     /* Hide scrollbar for Chrome, Safari and Opera */
