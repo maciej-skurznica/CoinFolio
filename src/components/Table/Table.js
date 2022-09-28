@@ -56,7 +56,13 @@ class Table extends React.Component {
         <TableSort />
         {haveData ? (
           <InfiniteScroll
-            style={{ width: "100vw" }}
+            style={{
+              width: "100vw",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
             dataLength={this.state.coinsData.length}
             next={this.fetchData}
             hasMore={this.state.hasMore}
@@ -65,7 +71,7 @@ class Table extends React.Component {
           >
             {this.state.coinsData.map((coin) => (
               <TableCoin
-                key={coin.name}
+                key={Math.random()}
                 data={coin}
                 currentCurrency={this.props.currentCurrency}
               />

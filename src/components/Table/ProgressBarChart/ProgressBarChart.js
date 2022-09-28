@@ -18,8 +18,8 @@ const ProgressBarChart = ({
   currentCurrency,
 }) => {
   return (
-    <Container>
-      <Numbers w={width}>
+    <Container w={width}>
+      <Numbers>
         <Left>
           {currencySymbolNeeded && (
             <CurrencySymbol>
@@ -37,8 +37,8 @@ const ProgressBarChart = ({
           {bigNumberConvertor(right) || "∞"}
         </Right>
       </Numbers>
-      <Bar w={width}>
-        <Fill value={(left * 100) / right} />
+      <Bar>
+        <Fill left={left} right={right} />
       </Bar>
     </Container>
   );

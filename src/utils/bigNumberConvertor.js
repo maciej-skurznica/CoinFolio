@@ -7,5 +7,5 @@ export function bigNumberConvertor(number) {
     ? (Math.abs(Number(number)) / 1.0e6).toFixed(2) + "m"
     : Math.abs(Number(number)) >= 1.0e3
     ? (Math.abs(Number(number)) / 1.0e3).toFixed(2) + "k"
-    : Math.abs(Number(number));
+    : Math.abs(Number(number).toFixed(2));
 }
