@@ -22,7 +22,7 @@ const VolumeChart = ({ volumesBTC, currentCurrency, hourlyInterval }) => {
     <Container>
       <Div>
         <Text>
-          Volume 24h:
+          BTC Volume 24h:
           <Value>
             {volume ? (
               <ValueWithCurrencySymbol

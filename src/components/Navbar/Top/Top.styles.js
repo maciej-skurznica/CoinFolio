@@ -25,7 +25,6 @@ export const StyledLink = styled(Link)`
   font-weight: bold;
   font-size: 1.1em;
   margin: 0.3em 0;
-  /* margin-left: 1.2em; */
   text-decoration: none;
   color: ${({ theme }) => theme.contrast};
   :hover {
