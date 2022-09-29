@@ -5,6 +5,10 @@ import { TableSort, TableCoin, TableCoinSkeleton, InfoInfiniteScroll } from "com
 import { toast } from "react-toastify";
 import { Container } from "./Table.styles";
 
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
+
 class Table extends React.Component {
   state = {
     isLoading: true,
@@ -18,21 +22,23 @@ class Table extends React.Component {
       const { data } = await axios(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${this.props.currentCurrency}&order=market_cap_desc&per_page=50&page=${this.state.page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
       );
-      this.setState({
-        coinsData: this.state.coinsData.concat(data),
-        isLoading: false,
-        hasMore: data.length === 50,
-      });
+
+      // Chinese but this is the only way I can compare old data versus new data
+      // If the data is the same it will not add new data to the old data array
+      if (this.state.coinsData?.[0]?.name !== data?.[0]?.name) {
+        this.setState({
+          coinsData: [...this.state.coinsData, ...data],
+          isLoading: false,
+          hasMore: data.length === 50,
+        });
+      }
     } catch (error) {
       toast.error("Error while loading coins data...", { toastId: "Table" });
       this.setState({ isLoading: false });
     }
   };
 
-  updatePageNumber = () => {
-    console.log("hasRun", this.state.page + 1);
-    this.setState({ page: this.state.page + 1 });
-  };
+  updatePageNumber = () => this.setState({ page: this.state.page + 1 });
 
   componentDidUpdate(_, prevState) {
     if (this.state.page !== prevState.page) {
@@ -49,7 +55,6 @@ class Table extends React.Component {
 
     return (
       <Container>
-        {console.log(this.state.page, this.state.coinsData.length)}
         <TableSort />
         {haveData ? (
           <InfiniteScroll
@@ -68,7 +73,7 @@ class Table extends React.Component {
           >
             {this.state.coinsData.map((coin) => (
               <TableCoin
-                key={Math.random()}
+                key={coin.name}
                 data={coin}
                 currentCurrency={this.props.currentCurrency}
               />
