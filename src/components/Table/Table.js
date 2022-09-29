@@ -5,10 +5,6 @@ import { TableSort, TableCoin, TableCoinSkeleton, InfoInfiniteScroll } from "com
 import { toast } from "react-toastify";
 import { Container } from "./Table.styles";
 
-window.onbeforeunload = function () {
-  window.scrollTo(0, 0);
-};
-
 class Table extends React.Component {
   state = {
     isLoading: true,

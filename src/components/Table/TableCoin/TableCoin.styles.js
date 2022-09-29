@@ -14,11 +14,6 @@ export const Container = styled.div`
   justify-content: space-between;
   margin: 0 1.2rem 4px;
   border-radius: 5px;
-  :hover {
-    margin: 0 0.8rem 4px;
-    max-width: calc(1800px + 0.8rem);
-    width: calc(100% - 1.6rem);
-  }
 `;
 
 export const Value = styled.div`
