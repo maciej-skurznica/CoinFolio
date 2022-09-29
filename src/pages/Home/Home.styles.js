@@ -33,4 +33,7 @@ export const BackToTop = styled.button`
       opacity: 1;
     }
   }
+  @media screen and (min-width: 1838px) {
+    right: calc(40px + ((100vw - 1838px) / 2));
+  }
 `;
