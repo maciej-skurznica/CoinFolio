@@ -5,13 +5,14 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: ${(props) => props.w}px;
 `;
 
 export const Numbers = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: ${(props) => props.w}px;
+  width: 100%;
   font-size: 0.7rem;
 `;
 
@@ -27,17 +28,21 @@ export const Right = styled.div`
 
 export const Bar = styled.div`
   height: 5px;
-  width: ${(props) => props.w}px;
+  width: 100%;
   border-radius: 2.5px;
   background-color: #d7c0ae;
   margin-top: 2px;
 `;
 
-export const Fill = styled.div`
+export const Fill = styled.div.attrs((props) => ({
+  style: {
+    width: (props.left * 100) / props.right + "%",
+    maxWidth: "100%",
+  },
+}))`
   height: 5px;
   border-radius: 2.5px;
   background-color: #967e76;
-  width: calc((${(props) => props.value}%));
 `;
 
 export const CurrencySymbol = styled.div`

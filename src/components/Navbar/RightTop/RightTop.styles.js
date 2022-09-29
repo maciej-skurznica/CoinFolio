@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  /* margin-right: 1.2em; */
   display: flex;
   justify-content: flex-end;
   align-items: center;

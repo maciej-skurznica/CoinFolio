@@ -34,7 +34,7 @@ const TableCoin = (props) => {
         {market_cap_rank}
       </Value>
       <Value width={150} align={"left"}>
-        <Icon icon={image} />
+        <Icon style={{ backgroundImage: `url(${image})` }} />
         <div>
           <Name>{name}</Name>
           {symbol.toUpperCase()}
@@ -47,13 +47,13 @@ const TableCoin = (props) => {
         <Price>{current_price}</Price>
       </Value>
       <Div width={195}>
-        <ValueChange width={60} color={change_1h < 0 && "red"}>
+        <ValueChange width={60} color={change_1h < 0 ? "red" : undefined}>
           {Math.round(change_1h * 100) / 100}%
         </ValueChange>
-        <ValueChange width={60} color={change_24h < 0 && "red"}>
+        <ValueChange width={60} color={change_24h < 0 ? "red" : undefined}>
           {Math.round(change_24h * 100) / 100}%
         </ValueChange>
-        <ValueChange width={60} color={change_7d < 0 && "red"}>
+        <ValueChange width={60} color={change_7d < 0 ? "red" : undefined}>
           {Math.round(change_7d * 100) / 100}%
         </ValueChange>
       </Div>

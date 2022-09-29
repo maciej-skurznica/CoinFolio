@@ -16,7 +16,7 @@ import {
 const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
   const hasData = pricesBTC.length;
   const price = pricesBTC?.[pricesBTC.length - 1]?.[1];
-  const isPriceTrendUp = pricesBTC?.[0]?.[1] < pricesBTC?.[pricesBTC.length - 1]?.[1];
+  const isPriceTrendUp = pricesBTC?.[0]?.[1] <= pricesBTC?.[pricesBTC.length - 1]?.[1];
 
   return (
     <Container>

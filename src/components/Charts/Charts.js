@@ -39,7 +39,7 @@ class Charts extends React.Component {
         isLoading: false,
       });
     } catch (error) {
-      toast.error("Error while loading charts data...", { toastId: "id" });
+      toast.error("Error while loading charts data...", { toastId: "Charts" });
       this.setState({ isLoading: false });
     }
   };

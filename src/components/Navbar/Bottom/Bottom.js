@@ -34,7 +34,7 @@ class Bottom extends React.Component {
         isLoading: false,
       });
     } catch (error) {
-      toast.error("Error while loading navbar...", { toastId: "id" });
+      toast.error("Error while loading navbar...", { toastId: "Bottom" });
       this.setState({ isLoading: false, hasError: true });
     }
   }

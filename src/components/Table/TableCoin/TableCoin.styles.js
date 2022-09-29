@@ -44,7 +44,6 @@ export const Div = styled.div`
 `;
 
 export const Icon = styled.div`
-  background-image: url(${(props) => props.icon});
   background-size: cover;
   background-position: center;
   height: 2em;
