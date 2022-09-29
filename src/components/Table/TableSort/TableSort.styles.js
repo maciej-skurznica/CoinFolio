@@ -12,8 +12,11 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 3em 1.2rem 4px;
+  margin: 3em 1.2rem 3px;
   border-radius: 5px;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid ${({ theme }) => theme.main};
 `;
 
 export const Text = styled.div`
