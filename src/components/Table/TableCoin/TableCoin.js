@@ -9,12 +9,14 @@ import {
   Price,
   Value,
   ValueChange,
+  StyledLink,
 } from "./TableCoin.styles";
 
 const TableCoin = (props) => {
   const {
     market_cap_rank,
     image,
+    id,
     symbol,
     name,
     current_price,
@@ -33,13 +35,15 @@ const TableCoin = (props) => {
       <Value width={10} align={"left"}>
         {market_cap_rank}
       </Value>
-      <Value width={150} align={"left"}>
-        <Icon style={{ backgroundImage: `url(${image})` }} />
-        <div>
-          <Name>{name}</Name>
-          {symbol.toUpperCase()}
-        </div>
-      </Value>
+      <StyledLink to={`/coins/${id}`}>
+        <Value width={150} align={"left"}>
+          <Icon style={{ backgroundImage: `url(${image})` }} />
+          <div>
+            <Name>{name}</Name>
+            {symbol.toUpperCase()}
+          </div>
+        </Value>
+      </StyledLink>
       <Value width={100} align={"left"}>
         <CurrencySymbol>
           {availableCurrencies[props.currentCurrency.toLowerCase()].symbol}

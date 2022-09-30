@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -63,4 +64,14 @@ export const CurrencySymbol = styled.div`
 
 export const Price = styled.div`
   color: ${({ theme }) => theme.contrast};
+`;
+
+export const StyledLink = styled(Link)`
+  :link {
+    text-decoration: none;
+    color: inherit;
+  }
+  :visited {
+    color: inherit;
+  }
 `;
