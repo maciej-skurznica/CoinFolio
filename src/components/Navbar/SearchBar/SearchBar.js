@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import onClickOutside from "react-onclickoutside";
+import React, { useState, useEffect, useRef } from "react";
 import { ImSearch } from "react-icons/im";
 import {
   Container,
@@ -9,20 +8,37 @@ import {
   Divider,
 } from "./SearchBar.styles";
 
-function SearchBar(props) {
+const useOutsideClick = (callback) => {
+  const ref = useRef();
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        callback();
+      }
+    };
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  });
+  return ref;
+};
+
+const SearchBar = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [value, setValue] = useState("");
 
   const handleClick = () => setIsExpanded(!isExpanded);
+
   const handleChange = (e) => setValue(e.target.value);
 
-  SearchBar.handleClickOutside = () => {
+  const ref = useOutsideClick(() => {
     setIsExpanded(false);
     setValue("");
-  };
+  });
 
   return (
-    <Container>
+    <Container ref={ref}>
       <SearchIcon>
         <ImSearch />
       </SearchIcon>
@@ -31,7 +47,7 @@ function SearchBar(props) {
         placeholder="Search..."
         onChange={handleChange}
         value={value}
-      ></Input>
+      />
       {isExpanded && (
         <SearchBarDropdown>
           <Divider />
@@ -39,10 +55,6 @@ function SearchBar(props) {
       )}
     </Container>
   );
-}
-
-const clickOutsideConfig = {
-  handleClickOutside: () => SearchBar.handleClickOutside,
 };
 
-export default onClickOutside(SearchBar, clickOutsideConfig);
+export default SearchBar;
