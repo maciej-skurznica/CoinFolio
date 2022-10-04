@@ -18,3 +18,5 @@ export { default as ValueWithCurrencySymbol } from "./ValueWithCurrencySymbol";
 export { default as BitcoinChart } from "./Charts/BitcoinChart";
 export { default as VolumeChart } from "./Charts/VolumeChart";
 export { default as InfoInfiniteScroll } from "./Table/InfoInfiniteScroll";
+export { default as CoinSummary } from "./CoinSummary";
+export { default as CoinSummarySkeleton } from "./CoinSummarySkeleton";

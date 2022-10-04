@@ -15,6 +15,7 @@ export const Container = styled.div`
   margin: 3em 1.2rem 3px;
   border-radius: 5px;
   position: sticky;
+  z-index: 1000;
   top: 0;
   border-bottom: 1px solid ${({ theme }) => theme.main};
 `;
