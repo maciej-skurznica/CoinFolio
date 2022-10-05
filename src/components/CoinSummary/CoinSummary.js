@@ -58,7 +58,7 @@ const CoinSummary = ({ coinData, currentCurrency }) => {
           <CoinName>{name}</CoinName>
         </IconTile>
         <WebsiteTile justify={"flex-start"}>
-          <LinkIcon>
+          <LinkIcon onClick={() => window.open(homepage)}>
             <FaLink />
           </LinkIcon>
           <WebsiteLink>{homepage}</WebsiteLink>

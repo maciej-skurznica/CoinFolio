@@ -24,17 +24,13 @@ export const Links = styled(Div)`
 `;
 
 export const LinkTile = styled(Div)`
-  min-width: calc((0.3333 * 100%) - 10px);
+  width: calc((0.3333 * 100%) - 10px);
   height: 35px;
   background-color: ${({ theme }) => theme.secondary};
   border-radius: 5px;
-  justify-content: space-between;
   flex-grow: 1;
-`;
-
-export const IconDiv = styled(Div)`
-  height: 12px;
-  width: 12px;
-  margin: 0 15px;
-  cursor: pointer;
+  padding: 0 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  text-align: center;
 `;

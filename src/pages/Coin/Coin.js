@@ -1,7 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { CoinDescription, CoinSummary, CoinSummarySkeleton } from "components";
+import {
+  CoinDescription,
+  CoinDescriptionSkeleton,
+  CoinSummary,
+  CoinSummarySkeleton,
+} from "components";
 import { Container, Description, InnerContainer } from "./Coin.styles";
 
 class Coin extends React.Component {
@@ -24,7 +29,6 @@ class Coin extends React.Component {
     }
   };
 
-  // do I really need this???
   componentDidUpdate(prevProps, _) {
     if (this.coinId !== prevProps.match.params.coin) {
       this.fetchData();
@@ -53,7 +57,11 @@ class Coin extends React.Component {
             <CoinSummarySkeleton />
           )}
           <Description>Description</Description>
-          {haveData && <CoinDescription coinData={this.state.coinData} />}
+          {haveData ? (
+            <CoinDescription coinData={this.state.coinData} />
+          ) : (
+            <CoinDescriptionSkeleton />
+          )}
         </InnerContainer>
       </Container>
     );

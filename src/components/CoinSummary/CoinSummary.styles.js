@@ -17,6 +17,7 @@ export const SumLeft = styled.div`
   flex-direction: column;
   flex-basis: content;
   row-gap: 15px;
+  max-width: 50%;
 `;
 
 export const IconTile = styled.div`
@@ -54,6 +55,7 @@ export const LinkIcon = styled(Div)`
   height: 12px;
   width: 12px;
   margin: 0 15px;
+  cursor: pointer;
 `;
 
 export const WebsiteLink = styled.a`
