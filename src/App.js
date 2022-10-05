@@ -63,7 +63,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/coins/:coin"
-                component={(props) => (
+                render={(props) => (
                   <Coin {...props} currentCurrency={this.state.currency} />
                 )}
               />
