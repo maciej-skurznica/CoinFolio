@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { CoinSummary, CoinSummarySkeleton } from "components";
+import { CoinDescription, CoinSummary, CoinSummarySkeleton } from "components";
 import { Container, Description, InnerContainer } from "./Coin.styles";
 
 class Coin extends React.Component {
@@ -53,6 +53,7 @@ class Coin extends React.Component {
             <CoinSummarySkeleton />
           )}
           <Description>Description</Description>
+          {haveData && <CoinDescription coinData={this.state.coinData} />}
         </InnerContainer>
       </Container>
     );
