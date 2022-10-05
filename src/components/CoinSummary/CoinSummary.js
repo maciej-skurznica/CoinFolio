@@ -25,26 +25,25 @@ import {
 } from "./CoinSummary.styles";
 
 const CoinSummary = ({ coinData, currentCurrency }) => {
+  const lowerCaseCurrency = currentCurrency.toLowerCase();
   const {
     image: { large },
     name,
     links: { homepage },
     market_data: {
-      current_price: { [currentCurrency.toLowerCase()]: price },
+      current_price: { [lowerCaseCurrency]: price },
     },
     market_data: {
-      price_change_percentage_24h_in_currency: {
-        [currentCurrency.toLowerCase()]: priceChange,
-      },
-      ath: { [currentCurrency.toLowerCase()]: ath },
-      ath_change_percentage: { [currentCurrency.toLowerCase()]: athPercentage },
-      ath_date: { [currentCurrency.toLowerCase()]: athDate },
-      atl: { [currentCurrency.toLowerCase()]: atl },
-      atl_change_percentage: { [currentCurrency.toLowerCase()]: atlPercentage },
-      atl_date: { [currentCurrency.toLowerCase()]: atlDate },
-      market_cap: { [currentCurrency.toLowerCase()]: marketCap },
-      fully_diluted_valuation: { [currentCurrency.toLowerCase()]: dilutedValuation },
-      total_volume: { [currentCurrency.toLowerCase()]: totalVolume },
+      price_change_percentage_24h_in_currency: { [lowerCaseCurrency]: priceChange },
+      ath: { [lowerCaseCurrency]: ath },
+      ath_change_percentage: { [lowerCaseCurrency]: athPercentage },
+      ath_date: { [lowerCaseCurrency]: athDate },
+      atl: { [lowerCaseCurrency]: atl },
+      atl_change_percentage: { [lowerCaseCurrency]: atlPercentage },
+      atl_date: { [lowerCaseCurrency]: atlDate },
+      market_cap: { [lowerCaseCurrency]: marketCap },
+      fully_diluted_valuation: { [lowerCaseCurrency]: dilutedValuation },
+      total_volume: { [lowerCaseCurrency]: totalVolume },
       circulating_supply,
       max_supply,
     },
@@ -57,29 +56,29 @@ const CoinSummary = ({ coinData, currentCurrency }) => {
           <Icon image={large} />
           <CoinName>{name}</CoinName>
         </IconTile>
-        <WebsiteTile justify={"flex-start"}>
+        <WebsiteTile justify="flex-start">
           <LinkIcon onClick={() => window.open(homepage)}>
             <FaLink />
           </LinkIcon>
           <WebsiteLink>{homepage}</WebsiteLink>
         </WebsiteTile>
       </SumLeft>
-      <SumMiddle direction={"column"}>
-        <PriceDiv direction={"column"}>
+      <SumMiddle direction="column">
+        <PriceDiv direction="column">
           <ValueWithCurrencySymbol value={price} currentCurrency={currentCurrency} />
           <PriceChange value={priceChange}>
             <Frame />
             {roundToTwoDecimal(priceChange) + "%"}
           </PriceChange>
         </PriceDiv>
-        <AllTimeLowHigh justify={"space-around"}>
-          <Div align={"flex-start"} direction={"column"}>
+        <AllTimeLowHigh justify="space-around">
+          <Div align="flex-start" direction="column">
             <ColumnTitle>ATH:</ColumnTitle>
             <ValueWithCurrencySymbol value={ath} currentCurrency={currentCurrency} />
             <div>{roundToTwoDecimal(athPercentage) + "%"}</div>
             <div>{new Date(athDate).toLocaleDateString()}</div>
           </Div>
-          <Div align={"flex-start"} direction={"column"}>
+          <Div align="flex-start" direction="column">
             <ColumnTitle>ATL:</ColumnTitle>
             <ValueWithCurrencySymbol value={atl} currentCurrency={currentCurrency} />
             <div>{roundToTwoDecimal(atlPercentage) + "%"}</div>
@@ -88,7 +87,7 @@ const CoinSummary = ({ coinData, currentCurrency }) => {
         </AllTimeLowHigh>
       </SumMiddle>
       <SumRight>
-        <Div direction={"column"} align={"flex-start"}>
+        <Div direction="column" align="flex-start">
           <Div>
             <Dot>
               <BsDot />

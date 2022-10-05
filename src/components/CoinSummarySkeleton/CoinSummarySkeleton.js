@@ -23,27 +23,27 @@ const CoinSummarySkeleton = (props) => {
       <SumLeft>
         <IconTile>
           <Icon>
-            <Skeleton circle={true} height={"2.2em"} />
+            <Skeleton circle height="2.2em" />
           </Icon>
           <CoinName>
             <Skeleton />
           </CoinName>
         </IconTile>
-        <WebsiteTile justify={"flex-start"}>
+        <WebsiteTile justify="flex-start">
           <WebsiteLink>
             <Skeleton />
           </WebsiteLink>
         </WebsiteTile>
       </SumLeft>
-      <SumMiddle direction={"column"}>
-        <PriceDiv direction={"column"}>
+      <SumMiddle direction="column">
+        <PriceDiv direction="column">
           <Skeleton width={60} />
           <PriceChange>
             <Skeleton width={50} />
           </PriceChange>
         </PriceDiv>
-        <AllTimeLowHigh justify={"space-around"}>
-          <Div align={"flex-start"} direction={"column"}>
+        <AllTimeLowHigh justify="space-around">
+          <Div align="flex-start" direction="column">
             <ColumnTitle>
               <Skeleton width={30} />
             </ColumnTitle>
@@ -51,7 +51,7 @@ const CoinSummarySkeleton = (props) => {
             <Skeleton width={40} />
             <Skeleton width={40} />
           </Div>
-          <Div align={"flex-start"} direction={"column"}>
+          <Div align="flex-start" direction="column">
             <ColumnTitle>
               <Skeleton width={30} />
             </ColumnTitle>
@@ -62,7 +62,7 @@ const CoinSummarySkeleton = (props) => {
         </AllTimeLowHigh>
       </SumMiddle>
       <SumRight>
-        <Div direction={"column"} align={"flex-start"}>
+        <Div direction="column" align="flex-start">
           <Div>
             <Skeleton width={170} />
           </Div>

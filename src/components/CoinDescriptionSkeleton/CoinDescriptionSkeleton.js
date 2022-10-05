@@ -12,9 +12,9 @@ const CoinDescriptionSkeleton = (props) => {
       </Description>
       <Links>
         {[1, 2, 3].map((el) => (
-          <LinkTile key={Math.random()}>
+          <LinkTile key={el}>
             <div style={{ width: "100%" }}>
-              <Skeleton width={"90%"} />
+              <Skeleton width="90%" />
             </div>
           </LinkTile>
         ))}

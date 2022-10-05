@@ -20,7 +20,7 @@ const CoinDescription = ({ coinData }) => {
         {links.reduce((acc, link) => {
           acc.push(
             link.length ? (
-              <LinkTile key={Math.random()}>
+              <LinkTile key={link}>
                 <IconDiv onClick={() => handleLinkClick(link)}>
                   <FaLink />
                 </IconDiv>
