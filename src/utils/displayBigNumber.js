@@ -1,3 +1,3 @@
-export function displayBigNumber(number) {
-  return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+export function displayBigNumber(number, toFixed = 2) {
+  return number.toFixed(toFixed).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 }

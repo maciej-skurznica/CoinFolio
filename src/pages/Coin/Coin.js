@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
+  CoinConverter,
+  CoinConverterLoader,
   CoinDescription,
   CoinDescriptionSkeleton,
   CoinSummary,
@@ -56,9 +58,18 @@ class Coin extends React.Component {
           )}
           <Description>Description</Description>
           {haveData ? (
-            <CoinDescription coinData={this.state.coinData} />
+            <>
+              <CoinDescription coinData={this.state.coinData} />
+              <CoinConverter
+                coinData={this.state?.coinData}
+                currentCurrency={currentCurrency}
+              />
+            </>
           ) : (
-            <CoinDescriptionSkeleton />
+            <>
+              <CoinDescriptionSkeleton />
+              <CoinConverterLoader />
+            </>
           )}
         </InnerContainer>
       </Container>
