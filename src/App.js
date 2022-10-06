@@ -60,7 +60,13 @@ class App extends React.Component {
                   <Home {...props} currentCurrency={this.state.currency} />
                 )}
               />
-              <Route exact path="/coins/:coin" component={Coin} />
+              <Route
+                exact
+                path="/coins/:coin"
+                render={(props) => (
+                  <Coin {...props} currentCurrency={this.state.currency} />
+                )}
+              />
               <Route exact path="/portfolio" component={Portfolio} />
               <Route path="*" component={NotFound} />
             </Switch>

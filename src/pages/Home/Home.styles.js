@@ -20,6 +20,7 @@ export const BackToTop = styled.button`
   bottom: 30px;
   right: 40px;
   cursor: pointer;
+  z-index: 1000;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   animation: animation 1s;
   :hover {
