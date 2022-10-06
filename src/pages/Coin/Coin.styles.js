@@ -7,6 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   color: ${({ theme }) => theme.main};
+  position: relative;
 `;
 
 export const InnerContainer = styled.div`

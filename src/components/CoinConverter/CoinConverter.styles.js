@@ -8,10 +8,12 @@ export const Container = styled(Div)`
 
 export const Left = styled(Div)`
   background-color: #e6007e;
-  width: 60px;
+  min-width: 60px;
   border-radius: 5px 0 0 5px;
   height: 30px;
   margin-left: 10px;
+  padding: 0 8px;
+  box-sizing: border-box;
 `;
 
 export const InputOnRight = styled.input`

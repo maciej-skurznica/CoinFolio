@@ -10,10 +10,10 @@ export const tooltipTitles = (data, hourlyInterval) =>
       : { dateStyle: "medium" }
   );
 
-export const tooltipLabels = (data, currentCurrency) => {
+export const tooltipLabels = (data, currentCurrency, toFixed = 2) => {
   const value = data.parsed.y;
   return `${data.dataset.label}: ${currencySymbol(currentCurrency)}${value
-    .toFixed(2)
+    .toFixed(toFixed)
     .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`;
 };
 

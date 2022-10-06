@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
+  BackgroundCoinChart,
   CoinConverter,
   CoinConverterLoader,
   CoinDescription,
@@ -36,6 +37,7 @@ class Coin extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.fetchData();
   }
 
@@ -51,7 +53,6 @@ class Coin extends React.Component {
             <CoinSummary
               coinData={this.state.coinData}
               currentCurrency={currentCurrency}
-              isLoading={this.state.isLoading}
             />
           ) : (
             <CoinSummarySkeleton />
@@ -61,7 +62,7 @@ class Coin extends React.Component {
             <>
               <CoinDescription coinData={this.state.coinData} />
               <CoinConverter
-                coinData={this.state?.coinData}
+                coinData={this.state.coinData}
                 currentCurrency={currentCurrency}
               />
             </>
@@ -72,6 +73,12 @@ class Coin extends React.Component {
             </>
           )}
         </InnerContainer>
+        {haveData && (
+          <BackgroundCoinChart
+            coinData={this.state.coinData}
+            currentCurrency={currentCurrency}
+          />
+        )}
       </Container>
     );
   }
