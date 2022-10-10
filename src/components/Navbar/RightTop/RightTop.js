@@ -1,6 +1,6 @@
-import { Currency } from "components";
 import { MoonIcon } from "@heroicons/react/20/solid";
 import { SunIcon } from "@heroicons/react/24/outline";
+import { Currency } from "components";
 import { Container, Divider, StyledLink, Theme } from "./RightTop.styles";
 
 const RightTop = (props) => {
@@ -9,7 +9,7 @@ const RightTop = (props) => {
       <Currency
         toggleCurrency={props.toggleCurrency}
         currentCurrency={props.currentCurrency}
-      ></Currency>
+      />
       <Divider>|</Divider>
       <Theme onClick={props.toggleTheme}>
         {props.darkThemeOn ? <SunIcon /> : <MoonIcon />}

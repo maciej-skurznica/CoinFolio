@@ -52,18 +52,3 @@ export const Icon = styled.div`
   height: ${(props) => (props.larger ? "1.35em" : "1em")};
   width: 1em;
 `;
-
-export const ProgressBar = styled.div`
-  margin-left: 0.25em;
-  height: 0.5em;
-  width: 3em;
-  border-radius: 3px;
-  background-color: #d7c0ae;
-`;
-
-export const Fill = styled.div`
-  height: 0.5em;
-  border-radius: 3px;
-  background-color: #967e76;
-  width: calc((${(props) => props.value}%));
-`;

@@ -1,4 +1,4 @@
-import SearchBar from "../SearchBar";
+import { SearchBar } from "components";
 import { Container, Div, Menu, StyledLink } from "./Middle.styles";
 
 const Middle = (props) => {
