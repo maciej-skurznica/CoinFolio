@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { ImSearch } from "react-icons/im";
+import { useOutsideClick } from "hooks";
 import {
   Container,
   SearchIcon,
@@ -7,22 +8,6 @@ import {
   SearchBarDropdown,
   Divider,
 } from "./SearchBar.styles";
-
-const useOutsideClick = (callback) => {
-  const ref = useRef();
-  useEffect(() => {
-    const handleClick = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        callback();
-      }
-    };
-    document.addEventListener("click", handleClick);
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  });
-  return ref;
-};
 
 const SearchBar = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
