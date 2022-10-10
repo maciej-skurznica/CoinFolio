@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Charts } from "components";
 import { BackToTop, Container } from "./Home.styles";
 
@@ -6,37 +6,35 @@ window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 };
 
-class Home extends React.Component {
-  state = { showBackToTopButton: false };
+const Home = ({ currentCurrency }) => {
+  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
 
-  scrollToTop = () => {
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
 
-  componentDidMount() {
-    window.addEventListener("scroll", () => {
-      if (window.pageYOffset > 900) {
-        this.setState({ showBackToTopButton: true });
-      } else {
-        this.setState({ showBackToTopButton: false });
-      }
-    });
-  }
+  const handleScroll = () =>
+    window.pageYOffset > 900
+      ? setShowBackToTopButton(true)
+      : setShowBackToTopButton(false);
 
-  render() {
-    return (
-      <Container>
-        <Charts currentCurrency={this.props.currentCurrency} />
-        <Table currentCurrency={this.props.currentCurrency} />
-        {this.state.showBackToTopButton && (
-          <BackToTop onClick={this.scrollToTop}>⇧</BackToTop>
-        )}
-      </Container>
-    );
-  }
-}
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <Container>
+      <Charts currentCurrency={currentCurrency} />
+      <Table currentCurrency={currentCurrency} />
+      {showBackToTopButton && <BackToTop onClick={scrollToTop}>⇧</BackToTop>}
+    </Container>
+  );
+};
 
 export default Home;
