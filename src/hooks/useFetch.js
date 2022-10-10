@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const useFetch = (url, toastId, setData, setIsLoading, setHasError) => {
+const useFetch = (url, toastId, initialDateValue = null) => {
+  const [data, setData] = useState(initialDateValue);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
   useEffect(
     () => async () => {
       const controller = new AbortController();
@@ -23,6 +27,8 @@ const useFetch = (url, toastId, setData, setIsLoading, setHasError) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [url]
   );
+
+  return [data, isLoading, hasError];
 };
 
 export default useFetch;

@@ -27,3 +27,4 @@ export { default as FlexSkeleton } from "./FlexSkeleton";
 export { default as CoinConverterLoader } from "./CoinConverterLoader";
 export { default as BackgroundCoinChart } from "./BackgroundCoinChart";
 export { default as BackgroundCoinChartTimeframes } from "./BackgroundCoinChartTimeframes";
+export { default as ProgressBar } from "./Navbar/ProgressBar";
