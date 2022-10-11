@@ -1,4 +1,6 @@
-export const setLocalStorage = (object) =>
+const setLocalStorage = (object) =>
   Object.keys(object).map((key) =>
     window.localStorage.setItem(key.toString(), JSON.stringify(object[key]))
   );
+
+export default setLocalStorage;

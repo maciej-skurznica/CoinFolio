@@ -4,11 +4,10 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { toast } from "react-toastify";
-import { timeFrames } from "assets/data/data";
-import { setLocalStorage } from "../../utils/setLocalStorage";
-import { getFromLocalStorage } from "../../utils/getFromLocalStorage";
-import { tooltipLabels, tooltipTitles } from "../../utils/chartsCallbacks";
 import { BackgroundCoinChartTimeframes } from "components";
+import { timeFrames } from "assets/data/data";
+import { getFromLocalStorage, setLocalStorage } from "utils";
+import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
 import { ChartContainer } from "./BackgroundCoinChart.styles";
 
 class BackgroundCoinChart extends React.Component {

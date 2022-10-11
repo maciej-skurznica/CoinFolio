@@ -5,14 +5,9 @@ import { Bar } from "react-chartjs-2";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ValueWithCurrencySymbol } from "components";
+import { bigNumberConvertor, roundToTwoDecimal } from "utils";
+import { tooltipLabels, tooltipTitles, xScaleTicks } from "utils/chartsCallbacks";
 import { ChartContainer, Container, Div, Text, Value } from "./VolumeChart.styles";
-import { bigNumberConvertor } from "../../../utils/bigNumberConvertor";
-import { roundToTwoDecimal } from "../../../utils/roundToTwoDecimal";
-import {
-  tooltipLabels,
-  tooltipTitles,
-  xScaleTicks,
-} from "../../../utils/chartsCallbacks";
 
 const VolumeChart = ({ volumesBTC, currentCurrency, hourlyInterval }) => {
   const hasData = volumesBTC.length;

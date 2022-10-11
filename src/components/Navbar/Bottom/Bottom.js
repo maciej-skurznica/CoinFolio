@@ -1,10 +1,10 @@
 import React from "react";
+import { useFetch } from "hooks";
 import { BottomSkeleton, ProgressBar } from "components";
-import { bigNumberConvertor } from "utils/bigNumberConvertor";
 import { availableCurrencies } from "assets/data/data";
 import { icons } from "assets/images/icons";
+import { bigNumberConvertor } from "utils";
 import { CapChange, Container, Div, Icon, Key, Symbol, Value } from "./Bottom.styles";
-import { useFetch } from "hooks";
 
 const Bottom = ({ currentCurrency }) => {
   const [marketData, isLoading, hasError] = useFetch(

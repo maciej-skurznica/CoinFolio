@@ -1,6 +1,6 @@
 import React from "react";
 import { CgArrowsExchangeAlt } from "react-icons/cg";
-import { displayBigNumber } from "../../utils/displayBigNumber";
+import { displayBigNumber } from "utils";
 import { Div } from "ui";
 import { Container, ConvertIcon, Left, InputOnRight } from "./CoinConverter.styles";
 

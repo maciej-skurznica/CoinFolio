@@ -1,4 +1,4 @@
-import { currencySymbol } from "./currencySymbol";
+import { currencySymbol } from "utils";
 
 export const tooltipTitles = (data, hourlyInterval) =>
   new Date(Number(data[0].label)).toLocaleString(
