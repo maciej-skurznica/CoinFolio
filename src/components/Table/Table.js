@@ -13,9 +13,11 @@ const Table = ({ currentCurrency }) => {
 
   useEffect(() => {
     async function fetchData() {
+      const controller = new AbortController();
       try {
         const { data } = await axios(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currentCurrency}&order=market_cap_desc&per_page=50&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currentCurrency}&order=market_cap_desc&per_page=50&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
+          { signal: controller.signal }
         );
 
         // Chinese but this is the only way I can compare old data versus new data
@@ -29,6 +31,7 @@ const Table = ({ currentCurrency }) => {
         toast.error("Error while loading coins data...", { toastId: "table" });
         setIsLoading(false);
       }
+      return () => controller.abort();
     }
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
