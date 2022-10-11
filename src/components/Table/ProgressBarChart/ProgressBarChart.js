@@ -1,5 +1,5 @@
 import { availableCurrencies } from "assets/data/data";
-import { bigNumberConvertor } from "utils/bigNumberConvertor";
+import { bigNumberConvertor } from "utils";
 import {
   Bar,
   Container,

@@ -1,5 +1,5 @@
-import { availableCurrencies } from "assets/data/data";
 import { ProgressBarChart, TableSparkline } from "components";
+import { availableCurrencies } from "assets/data/data";
 import {
   Container,
   CurrencySymbol,

@@ -1,4 +1,4 @@
-export function bigNumberConvertor(number) {
+function bigNumberConvertor(number) {
   return Math.abs(Number(number)) >= 1.0e12
     ? (Math.abs(Number(number)) / 1.0e12).toFixed(2) + "t"
     : Math.abs(Number(number)) >= 1.0e9
@@ -9,3 +9,5 @@ export function bigNumberConvertor(number) {
     ? (Math.abs(Number(number)) / 1.0e3).toFixed(2) + "k"
     : Math.abs(Number(number).toFixed(2));
 }
+
+export default bigNumberConvertor;

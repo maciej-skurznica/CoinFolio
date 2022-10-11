@@ -23,12 +23,14 @@ const TableSparkline = ({ priceData, width }) => {
         },
       }}
       data={{
-        labels: priceData.filter((el, i) => (i + 1) % 4 === 0 && i),
+        labels: priceData.map((el, i) => i),
         datasets: [
           {
             borderColor:
-              priceData[3] > priceData[167] ? "rgb(209,78,77)" : "rgb(42,141,120)",
-            data: priceData.filter((el, i) => (i + 1) % 4 === 0 && el),
+              priceData[0] > priceData[priceData.length - 1]
+                ? "rgb(209,78,77)"
+                : "rgb(42,141,120)",
+            data: priceData.map((el) => el),
           },
         ],
       }}

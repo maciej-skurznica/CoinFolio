@@ -1,4 +1,6 @@
 import { availableCurrencies } from "assets/data/data";
 
-export const currencySymbol = (currentCurrency) =>
+const currencySymbol = (currentCurrency) =>
   availableCurrencies[currentCurrency.toLowerCase()].symbol;
+
+export default currencySymbol;
