@@ -10,6 +10,7 @@ const Bottom = ({ currentCurrency }) => {
   const [marketData, isLoading, hasError] = useFetch(
     "https://api.coingecko.com/api/v3/global",
     "navbar",
+    [],
     {}
   );
 
