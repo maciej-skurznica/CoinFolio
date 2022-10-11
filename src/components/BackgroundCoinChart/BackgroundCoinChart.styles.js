@@ -5,5 +5,5 @@ export const ChartContainer = styled(Div)`
   width: 100%;
   z-index: -1;
   position: absolute;
-  bottom: -400px;
+  bottom: calc(-70vh);
 `;
