@@ -1,8 +1,8 @@
 import { BsDot } from "react-icons/bs";
 import { FaLink } from "react-icons/fa";
 import { ValueWithCurrencySymbol } from "components";
-import { Div } from "ui";
 import { displayBigNumber, roundToTwoDecimal } from "utils";
+import { Div } from "ui";
 import {
   AllTimeLowHigh,
   CoinName,
