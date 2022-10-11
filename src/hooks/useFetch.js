@@ -17,7 +17,7 @@ const useFetch = (url, toastId, arrayOfVarsToWatch, initialDateValue = null) => 
           setIsLoading(false);
           setHasError(false);
         } catch (error) {
-          toast.error(`Error while loading ${toastId}...`, { toastId: toastId });
+          toast.error(`Error while loading ${toastId} data...`, { toastId: toastId });
           setHasError(true);
           setIsLoading(false);
         }
