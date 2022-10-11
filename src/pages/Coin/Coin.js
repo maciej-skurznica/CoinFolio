@@ -1,6 +1,5 @@
-import React from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
+import React, { useEffect } from "react";
+import { Redirect, useParams } from "react-router-dom";
 import {
   BackgroundCoinChart,
   CoinConverter,
@@ -11,77 +10,52 @@ import {
   CoinSummarySkeleton,
 } from "components";
 import { Container, Description, InnerContainer } from "./Coin.styles";
+import { useFetch } from "hooks";
 
-class Coin extends React.Component {
-  state = { isLoading: true, coinData: {} };
+const Coin = ({ currentCurrency }) => {
+  const { coin } = useParams();
 
-  fetchData = async () => {
-    try {
-      const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/${this.props.match.params.coin}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`
-      );
-      this.setState({
-        coinData: data,
-        isLoading: false,
-      });
-    } catch (error) {
-      toast.error("Error while loading coin data...", { toastId: "Coin" });
-      this.setState({ isLoading: false });
-    }
-  };
+  const [coinData, isLoading, hasError] = useFetch(
+    `https://api.coingecko.com/api/v3/coins/${coin}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`,
+    "coin",
+    [coin],
+    {}
+  );
 
-  componentDidUpdate(prevProps, _) {
-    if (this.props.match.params.coin !== prevProps.match.params.coin) {
-      this.fetchData();
-    }
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     window.scrollTo(0, 0);
-    this.fetchData();
-  }
+  }, []);
 
-  render() {
-    const haveData = !this.state.isLoading && Object.keys(this.state.coinData).length;
-    const { currentCurrency } = this.props;
+  const haveData = !isLoading && !hasError && Object.keys(coinData).length;
 
-    return (
-      <Container>
-        <InnerContainer>
-          <Description>Summary</Description>
-          {haveData ? (
-            <CoinSummary
-              coinData={this.state.coinData}
-              currentCurrency={currentCurrency}
-            />
-          ) : (
-            <CoinSummarySkeleton />
-          )}
-          <Description>Description</Description>
-          {haveData ? (
-            <>
-              <CoinDescription coinData={this.state.coinData} />
-              <CoinConverter
-                coinData={this.state.coinData}
-                currentCurrency={currentCurrency}
-              />
-            </>
-          ) : (
-            <>
-              <CoinDescriptionSkeleton />
-              <CoinConverterLoader />
-            </>
-          )}
-        </InnerContainer>
-        {haveData && (
-          <BackgroundCoinChart
-            coinData={this.state.coinData}
-            currentCurrency={currentCurrency}
-          />
+  return (
+    <Container>
+      {hasError && <Redirect to="/coins" />}
+      <InnerContainer>
+        <Description>Summary</Description>
+        {haveData ? (
+          <CoinSummary coinData={coinData} currentCurrency={currentCurrency} />
+        ) : (
+          <CoinSummarySkeleton />
         )}
-      </Container>
-    );
-  }
-}
+        <Description>Description</Description>
+        {haveData ? (
+          <>
+            <CoinDescription coinData={coinData} />
+            <CoinConverter coinData={coinData} currentCurrency={currentCurrency} />
+          </>
+        ) : (
+          <>
+            <CoinDescriptionSkeleton />
+            <CoinConverterLoader />
+          </>
+        )}
+      </InnerContainer>
+      {haveData && (
+        <BackgroundCoinChart coinData={coinData} currentCurrency={currentCurrency} />
+      )}
+    </Container>
+  );
+};
 
 export default Coin;
