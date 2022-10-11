@@ -6,8 +6,8 @@ const Middle = (props) => {
     <Container>
       <Div>
         <Menu>
-          <StyledLink to={"/"}>Coins</StyledLink>
-          <StyledLink to={"/"}>Portfolio</StyledLink>
+          <StyledLink to={"/coins"}>Coins</StyledLink>
+          <StyledLink to={"/portfolio"}>Portfolio</StyledLink>
         </Menu>
         <SearchBar />
       </Div>

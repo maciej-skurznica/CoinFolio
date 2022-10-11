@@ -38,7 +38,7 @@ const App = () => {
           <Switch>
             <Route
               exact
-              path="/"
+              path={["/", "/coins"]}
               component={(props) => <Home {...props} currentCurrency={currency} />}
             />
             <Route
