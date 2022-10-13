@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { ChartsBottom, BitcoinChart, VolumeChart } from "components";
 import { useFetch, useLocalStorageAndState } from "hooks";
-import { timeFrames } from "assets/data/data";
+import { timeFrames } from "assets/data";
 import { Container, Top } from "./Charts.styles";
 
 const Charts = () => {

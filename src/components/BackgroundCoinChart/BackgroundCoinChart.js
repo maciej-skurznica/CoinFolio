@@ -5,7 +5,7 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { BackgroundCoinChartTimeframes } from "components";
 import { useFetch, useLocalStorageAndState } from "hooks";
-import { timeFrames } from "assets/data/data";
+import { timeFrames } from "assets/data";
 import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
 import { ChartContainer } from "./BackgroundCoinChart.styles";
 

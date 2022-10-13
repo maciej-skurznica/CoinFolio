@@ -29,7 +29,6 @@ const Table = () => {
           setCoinsData([...coinsData, ...data]);
           setIsLoading(false);
           setHasMore(data.length === 50);
-          console.log("fetching");
         }
       } catch (error) {
         toast.error("Error while loading coins data...", { toastId: "table" });

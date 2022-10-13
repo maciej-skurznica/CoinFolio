@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useOutsideClick } from "hooks";
 import { toggleCurrency } from "store/appSlice";
-import { availableCurrencies as ac } from "assets/data/data";
+import { availableCurrencies as ac } from "assets/data";
 import {
   Container,
   Ticker,

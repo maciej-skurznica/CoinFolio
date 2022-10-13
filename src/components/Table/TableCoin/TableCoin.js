@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { ProgressBarChart, TableSparkline } from "components";
-import { availableCurrencies } from "assets/data/data";
+import { availableCurrencies } from "assets/data";
 import {
   Container,
   CurrencySymbol,

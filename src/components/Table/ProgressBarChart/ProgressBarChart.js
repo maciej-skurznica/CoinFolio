@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { availableCurrencies } from "assets/data/data";
+import { availableCurrencies } from "assets/data";
 import { bigNumberConvertor } from "utils";
 import {
   Bar,
