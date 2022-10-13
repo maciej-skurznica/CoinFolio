@@ -3,7 +3,7 @@ import { useFetch } from "hooks";
 import { useSelector } from "react-redux";
 import { BottomSkeleton, ProgressBar } from "components";
 import { availableCurrencies } from "assets/data";
-import { icons } from "assets/images/icons";
+import { icons } from "assets/images";
 import { bigNumberConvertor } from "utils";
 import { CapChange, Container, Div, Icon, Key, Symbol, Value } from "./Bottom.styles";
 
