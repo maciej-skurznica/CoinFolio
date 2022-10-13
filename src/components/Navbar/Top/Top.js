@@ -1,8 +1,8 @@
 import { RightTop } from "components";
-import logo from "../../../assets/images/logo.png";
+import logo from "assets/images/logo.png";
 import { Container, Div, StyledLink, Img } from "./Top.styles";
 
-const Top = (props) => {
+const Top = () => {
   return (
     <Container>
       <Div>
@@ -10,12 +10,7 @@ const Top = (props) => {
           <Img src={logo} alt="logo" />
           CoinFolio
         </StyledLink>
-        <RightTop
-          toggleCurrency={props.toggleCurrency}
-          currentCurrency={props.currentCurrency}
-          toggleTheme={props.toggleTheme}
-          darkThemeOn={props.darkThemeOn}
-        />
+        <RightTop />
       </Div>
     </Container>
   );

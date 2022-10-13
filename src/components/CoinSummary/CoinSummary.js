@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { BsDot } from "react-icons/bs";
 import { FaLink } from "react-icons/fa";
 import { ValueWithCurrencySymbol } from "components";
@@ -23,8 +24,8 @@ import {
   WebsiteTile,
 } from "./CoinSummary.styles";
 
-const CoinSummary = ({ coinData, currentCurrency }) => {
-  const lowerCaseCurrency = currentCurrency.toLowerCase();
+const CoinSummary = ({ coinData }) => {
+  const lowerCaseCurrency = useSelector(({ app }) => app.currency.toLowerCase());
   const {
     image: { large },
     name,
@@ -64,7 +65,7 @@ const CoinSummary = ({ coinData, currentCurrency }) => {
       </SumLeft>
       <SumMiddle direction="column">
         <PriceDiv direction="column">
-          <ValueWithCurrencySymbol value={price} currentCurrency={currentCurrency} />
+          <ValueWithCurrencySymbol value={price} />
           <PriceChange value={priceChange}>
             <Frame />
             {roundToTwoDecimal(priceChange) + "%"}
@@ -73,13 +74,13 @@ const CoinSummary = ({ coinData, currentCurrency }) => {
         <AllTimeLowHigh justify="space-around">
           <Div align="flex-start" direction="column">
             <ColumnTitle>ATH:</ColumnTitle>
-            <ValueWithCurrencySymbol value={ath} currentCurrency={currentCurrency} />
+            <ValueWithCurrencySymbol value={ath} />
             <div>{roundToTwoDecimal(athPercentage) + "%"}</div>
             <div>{new Date(athDate).toLocaleDateString()}</div>
           </Div>
           <Div align="flex-start" direction="column">
             <ColumnTitle>ATL:</ColumnTitle>
-            <ValueWithCurrencySymbol value={atl} currentCurrency={currentCurrency} />
+            <ValueWithCurrencySymbol value={atl} />
             <div>{roundToTwoDecimal(atlPercentage) + "%"}</div>
             <div>{new Date(atlDate).toLocaleDateString()}</div>
           </Div>
@@ -92,10 +93,7 @@ const CoinSummary = ({ coinData, currentCurrency }) => {
               <BsDot />
             </Dot>
             <Text>Market Cap:</Text>
-            <ValueWithCurrencySymbol
-              value={displayBigNumber(marketCap)}
-              currentCurrency={currentCurrency}
-            />
+            <ValueWithCurrencySymbol value={displayBigNumber(marketCap)} />
           </Div>
           {dilutedValuation && (
             <Div>
@@ -103,10 +101,7 @@ const CoinSummary = ({ coinData, currentCurrency }) => {
                 <BsDot />
               </Dot>
               <Text>Fully Diluted Valuation:</Text>
-              <ValueWithCurrencySymbol
-                value={displayBigNumber(dilutedValuation)}
-                currentCurrency={currentCurrency}
-              />
+              <ValueWithCurrencySymbol value={displayBigNumber(dilutedValuation)} />
             </Div>
           )}
           <Div>
@@ -114,10 +109,7 @@ const CoinSummary = ({ coinData, currentCurrency }) => {
               <BsDot />
             </Dot>
             <Text>Volume 24h:</Text>
-            <ValueWithCurrencySymbol
-              value={displayBigNumber(totalVolume)}
-              currentCurrency={currentCurrency}
-            />
+            <ValueWithCurrencySymbol value={displayBigNumber(totalVolume)} />
           </Div>
           <Div>
             <Dot>

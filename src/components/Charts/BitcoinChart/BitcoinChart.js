@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -9,7 +10,9 @@ import { roundToTwoDecimal } from "utils";
 import { tooltipLabels, tooltipTitles, xScaleTicks } from "utils/chartsCallbacks";
 import { ChartContainer, Container, Div, Text, Value } from "./BitcoinChart.styles";
 
-const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
+const BitcoinChart = ({ pricesBTC, hourlyInterval }) => {
+  const currentCurrency = useSelector(({ app }) => app.currency);
+
   const hasData = pricesBTC.length;
   const price = pricesBTC?.[pricesBTC.length - 1]?.[1];
   const isPriceTrendUp = pricesBTC?.[0]?.[1] <= pricesBTC?.[pricesBTC.length - 1]?.[1];
@@ -21,10 +24,7 @@ const BitcoinChart = ({ pricesBTC, currentCurrency, hourlyInterval }) => {
           BTC Price:
           <Value>
             {price ? (
-              <ValueWithCurrencySymbol
-                value={roundToTwoDecimal(price)}
-                currentCurrency={currentCurrency}
-              />
+              <ValueWithCurrencySymbol value={roundToTwoDecimal(price)} />
             ) : (
               <Skeleton width={60} />
             )}

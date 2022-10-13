@@ -1,16 +1,11 @@
 import { Middle, Top, Bottom } from "components";
 
-const Navbar = (props) => {
+const Navbar = () => {
   return (
     <>
-      <Top
-        toggleCurrency={props.toggleCurrency}
-        currentCurrency={props.currentCurrency}
-        toggleTheme={props.toggleTheme}
-        darkThemeOn={props.darkThemeOn}
-      />
+      <Top />
       <Middle />
-      <Bottom currentCurrency={props.currentCurrency} />
+      <Bottom />
     </>
   );
 };

@@ -6,7 +6,7 @@ window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 };
 
-const Home = ({ currentCurrency }) => {
+const Home = () => {
   const [showBackToTopButton, setShowBackToTopButton] = useState(false);
 
   const scrollToTop = () => {
@@ -30,8 +30,8 @@ const Home = ({ currentCurrency }) => {
 
   return (
     <Container>
-      <Charts currentCurrency={currentCurrency} />
-      <Table currentCurrency={currentCurrency} />
+      <Charts />
+      <Table />
       {showBackToTopButton && <BackToTop onClick={scrollToTop}>⇧</BackToTop>}
     </Container>
   );

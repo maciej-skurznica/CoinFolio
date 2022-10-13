@@ -1,12 +1,15 @@
 import React from "react";
 import { useFetch } from "hooks";
+import { useSelector } from "react-redux";
 import { BottomSkeleton, ProgressBar } from "components";
 import { availableCurrencies } from "assets/data/data";
 import { icons } from "assets/images/icons";
 import { bigNumberConvertor } from "utils";
 import { CapChange, Container, Div, Icon, Key, Symbol, Value } from "./Bottom.styles";
 
-const Bottom = ({ currentCurrency }) => {
+const Bottom = () => {
+  const currentCurrencyLowerCase = useSelector(({ app }) => app.currency.toLowerCase());
+
   const [marketData, isLoading, hasError] = useFetch(
     "https://api.coingecko.com/api/v3/global",
     "navbar",
@@ -38,10 +41,8 @@ const Bottom = ({ currentCurrency }) => {
             <Key>
               Market Cap:
               <Value>
-                <Symbol>
-                  {availableCurrencies[currentCurrency.toLowerCase()].symbol}
-                </Symbol>
-                {bigNumberConvertor(total_market_cap[currentCurrency.toLowerCase()])}
+                <Symbol>{availableCurrencies[currentCurrencyLowerCase].symbol}</Symbol>
+                {bigNumberConvertor(total_market_cap[currentCurrencyLowerCase])}
                 <CapChange change={marketCapChange}>
                   {marketCapChange >= 0 ? "↑" : "↓"}
                 </CapChange>
@@ -50,10 +51,8 @@ const Bottom = ({ currentCurrency }) => {
             <Key>
               24h Vol:
               <Value>
-                <Symbol>
-                  {availableCurrencies[currentCurrency.toLowerCase()].symbol}
-                </Symbol>
-                {bigNumberConvertor(total_volume[currentCurrency.toLowerCase()])}
+                <Symbol>{availableCurrencies[currentCurrencyLowerCase].symbol}</Symbol>
+                {bigNumberConvertor(total_volume[currentCurrencyLowerCase])}
               </Value>
             </Key>
             <Key>

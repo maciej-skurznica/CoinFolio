@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    //
+    "importHelpers": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  //
+  "checkJs": true,
+  "exclude": ["node_modules"]
 }

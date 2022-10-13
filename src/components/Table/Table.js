@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { TableSort, TableCoin, TableCoinSkeleton, InfoInfiniteScroll } from "components";
 import { Container } from "./Table.styles";
 
-const Table = ({ currentCurrency }) => {
+const Table = () => {
+  const currentCurrency = useSelector(({ app }) => app.currency);
+
   const [coinsData, setCoinsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
@@ -26,6 +29,7 @@ const Table = ({ currentCurrency }) => {
           setCoinsData([...coinsData, ...data]);
           setIsLoading(false);
           setHasMore(data.length === 50);
+          console.log("fetching");
         }
       } catch (error) {
         toast.error("Error while loading coins data...", { toastId: "table" });
@@ -35,7 +39,7 @@ const Table = ({ currentCurrency }) => {
     }
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, currentCurrency]);
 
   const updatePageNumber = () => setPage(page + 1);
 
@@ -60,7 +64,7 @@ const Table = ({ currentCurrency }) => {
           endMessage={<InfoInfiniteScroll info={"Yay! You have seen it all"} />}
         >
           {coinsData.map((coin) => (
-            <TableCoin key={coin.name} data={coin} currentCurrency={currentCurrency} />
+            <TableCoin key={coin.name} data={coin} />
           ))}
         </InfiniteScroll>
       ) : (

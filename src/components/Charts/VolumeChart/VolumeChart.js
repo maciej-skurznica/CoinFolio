@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
@@ -9,7 +10,9 @@ import { bigNumberConvertor, roundToTwoDecimal } from "utils";
 import { tooltipLabels, tooltipTitles, xScaleTicks } from "utils/chartsCallbacks";
 import { ChartContainer, Container, Div, Text, Value } from "./VolumeChart.styles";
 
-const VolumeChart = ({ volumesBTC, currentCurrency, hourlyInterval }) => {
+const VolumeChart = ({ volumesBTC, hourlyInterval }) => {
+  const currentCurrency = useSelector(({ app }) => app.currency);
+
   const hasData = volumesBTC.length;
   const volume = volumesBTC?.[volumesBTC.length - 1]?.[1];
 
@@ -20,10 +23,7 @@ const VolumeChart = ({ volumesBTC, currentCurrency, hourlyInterval }) => {
           BTC Volume 24h:
           <Value>
             {volume ? (
-              <ValueWithCurrencySymbol
-                value={bigNumberConvertor(volume)}
-                currentCurrency={currentCurrency}
-              />
+              <ValueWithCurrencySymbol value={bigNumberConvertor(volume)} />
             ) : (
               <Skeleton width={48} />
             )}

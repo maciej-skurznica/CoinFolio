@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { CgArrowsExchangeAlt } from "react-icons/cg";
 import { displayBigNumber } from "utils";
 import { Div } from "ui";
 import { Container, ConvertIcon, Left, InputOnRight } from "./CoinConverter.styles";
 
-const CoinConverter = ({ coinData, currentCurrency }) => {
+const CoinConverter = ({ coinData }) => {
+  const currentCurrency = useSelector(({ app }) => app.currency);
+
   const [fiatValue, setFiatValue] = useState("");
   const [fiatPlaceholder, setFiatPlaceholder] = useState("Type value");
   const [cryptoValue, setCryptoValue] = useState("");

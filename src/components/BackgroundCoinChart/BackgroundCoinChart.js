@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -8,7 +9,9 @@ import { timeFrames } from "assets/data/data";
 import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
 import { ChartContainer } from "./BackgroundCoinChart.styles";
 
-const BackgroundCoinChart = ({ coinData, currentCurrency }) => {
+const BackgroundCoinChart = ({ coinData }) => {
+  const currentCurrency = useSelector(({ app }) => app.currency);
+
   const [activeButton, setActiveButton] = useLocalStorageAndState("activeButton", "6m");
   const { days, interval } = timeFrames[activeButton];
 

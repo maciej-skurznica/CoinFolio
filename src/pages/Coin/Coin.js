@@ -9,10 +9,10 @@ import {
   CoinSummary,
   CoinSummarySkeleton,
 } from "components";
-import { Container, Description, InnerContainer } from "./Coin.styles";
 import { useFetch } from "hooks";
+import { Container, Description, InnerContainer } from "./Coin.styles";
 
-const Coin = ({ currentCurrency }) => {
+const Coin = () => {
   const { coin } = useParams();
 
   const [coinData, isLoading, hasError] = useFetch(
@@ -33,16 +33,12 @@ const Coin = ({ currentCurrency }) => {
       {hasError && <Redirect to="/coins" />}
       <InnerContainer>
         <Description>Summary</Description>
-        {haveData ? (
-          <CoinSummary coinData={coinData} currentCurrency={currentCurrency} />
-        ) : (
-          <CoinSummarySkeleton />
-        )}
+        {haveData ? <CoinSummary coinData={coinData} /> : <CoinSummarySkeleton />}
         <Description>Description</Description>
         {haveData ? (
           <>
             <CoinDescription coinData={coinData} />
-            <CoinConverter coinData={coinData} currentCurrency={currentCurrency} />
+            <CoinConverter coinData={coinData} />
           </>
         ) : (
           <>
@@ -51,9 +47,7 @@ const Coin = ({ currentCurrency }) => {
           </>
         )}
       </InnerContainer>
-      {haveData && (
-        <BackgroundCoinChart coinData={coinData} currentCurrency={currentCurrency} />
-      )}
+      {haveData && <BackgroundCoinChart coinData={coinData} />}
     </Container>
   );
 };
