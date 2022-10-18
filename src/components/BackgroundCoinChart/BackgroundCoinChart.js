@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { BackgroundCoinChartTimeframes } from "components";
-import { useFetch, useLocalStorageAndState } from "hooks";
+import { useFetch } from "hooks";
 import { timeFrames } from "assets/data";
 import loading from "assets/images/loading.svg";
 import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
@@ -12,8 +12,8 @@ import { ChartContainer, LoadingDiv } from "./BackgroundCoinChart.styles";
 
 const BackgroundCoinChart = ({ coinData }) => {
   const currentCurrency = useSelector(({ app }) => app.currency);
+  const activeButton = useSelector(({ charts }) => charts.activeButton);
 
-  const [activeButton, setActiveButton] = useLocalStorageAndState("activeButton", "6m");
   const { days, interval } = timeFrames[activeButton];
 
   const [{ prices: coinPrices }, isLoading] = useFetch(
@@ -23,19 +23,13 @@ const BackgroundCoinChart = ({ coinData }) => {
     []
   );
 
-  const handleTimeFrameClick = (key) => setActiveButton(key);
-
   const hourlyInterval = timeFrames[activeButton].interval === "hourly";
   const isPriceTrendUp = coinPrices?.[0]?.[1] <= coinPrices?.[coinPrices.length - 1]?.[1];
   const hasData = coinPrices?.length;
 
   return (
     <>
-      <BackgroundCoinChartTimeframes
-        handleTimeFrameClick={handleTimeFrameClick}
-        timeFrames={timeFrames}
-        activeButton={activeButton}
-      />
+      <BackgroundCoinChartTimeframes />
       <ChartContainer>
         {isLoading && (
           <LoadingDiv>

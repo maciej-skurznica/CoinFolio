@@ -6,12 +6,16 @@ import { Bar } from "react-chartjs-2";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ValueWithCurrencySymbol } from "components";
+import { timeFrames } from "assets/data";
 import { bigNumberConvertor, roundToTwoDecimal } from "utils";
 import { tooltipLabels, tooltipTitles, xScaleTicks } from "utils/chartsCallbacks";
 import { ChartContainer, Container, Div, Text, Value } from "./VolumeChart.styles";
 
-const VolumeChart = ({ volumesBTC, hourlyInterval }) => {
+const VolumeChart = ({ volumesBTC }) => {
   const currentCurrency = useSelector(({ app }) => app.currency);
+  const activeButton = useSelector(({ charts }) => charts.activeButton);
+
+  const hourlyInterval = timeFrames[activeButton].interval === "hourly";
 
   const hasData = volumesBTC.length;
   const volume = volumesBTC?.[volumesBTC.length - 1]?.[1];

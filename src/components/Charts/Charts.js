@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { ChartsBottom, BitcoinChart, VolumeChart } from "components";
-import { useFetch, useLocalStorageAndState } from "hooks";
+import { useFetch } from "hooks";
 import { timeFrames } from "assets/data";
 import { Container, Top } from "./Charts.styles";
 
 const Charts = () => {
   const currentCurrency = useSelector(({ app }) => app.currency);
+  const activeButton = useSelector(({ charts }) => charts.activeButton);
 
-  const [activeButton, setActiveButton] = useLocalStorageAndState("activeButton", "6m");
   const { days, interval } = timeFrames[activeButton];
 
   const [{ prices: pricesBTC, total_volumes: volumesBTC }] = useFetch(
@@ -20,21 +20,10 @@ const Charts = () => {
   return (
     <Container>
       <Top>
-        <BitcoinChart
-          pricesBTC={pricesBTC}
-          hourlyInterval={timeFrames[activeButton].interval === "hourly"}
-        />
-        <VolumeChart
-          volumesBTC={volumesBTC}
-          hourlyInterval={timeFrames[activeButton].interval === "hourly"}
-        />
+        <BitcoinChart pricesBTC={pricesBTC} />
+        <VolumeChart volumesBTC={volumesBTC} />
       </Top>
-      <ChartsBottom
-        date={pricesBTC?.[pricesBTC.length - 1]?.[0]}
-        handleTimeFrameClick={(key) => setActiveButton(key)}
-        timeFrames={timeFrames}
-        activeButton={activeButton}
-      />
+      <ChartsBottom date={pricesBTC?.[pricesBTC.length - 1]?.[0]} />
     </Container>
   );
 };

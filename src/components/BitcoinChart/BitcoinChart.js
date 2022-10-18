@@ -6,12 +6,16 @@ import { Line } from "react-chartjs-2";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ValueWithCurrencySymbol } from "components";
+import { timeFrames } from "assets/data";
 import { roundToTwoDecimal } from "utils";
 import { tooltipLabels, tooltipTitles, xScaleTicks } from "utils/chartsCallbacks";
 import { ChartContainer, Container, Div, Text, Value } from "./BitcoinChart.styles";
 
-const BitcoinChart = ({ pricesBTC, hourlyInterval }) => {
+const BitcoinChart = ({ pricesBTC }) => {
   const currentCurrency = useSelector(({ app }) => app.currency);
+  const activeButton = useSelector(({ charts }) => charts.activeButton);
+
+  const hourlyInterval = timeFrames[activeButton].interval === "hourly";
 
   const hasData = pricesBTC.length;
   const price = pricesBTC?.[pricesBTC.length - 1]?.[1];

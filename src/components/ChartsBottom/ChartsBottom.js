@@ -1,8 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { handleTimeFrameClick } from "store/chartsSlice";
+import { timeFrames } from "assets/data";
 import { Button, Container, DateDisplay } from "./ChartsBottom.styles";
 
 const ChartsBottom = (props) => {
+  const activeButton = useSelector(({ charts }) => charts.activeButton);
+  const dispatch = useDispatch();
+
   const date = new Date(props.date).toLocaleString("locales", {
     dateStyle: "short",
     timeStyle: "short",
@@ -15,11 +21,11 @@ const ChartsBottom = (props) => {
         {date !== "Invalid Date" ? date : <Skeleton width={110} />}
       </DateDisplay>
       <div>
-        {Object.keys(props.timeFrames).map((key) => (
+        {Object.keys(timeFrames).map((key) => (
           <Button
             key={key}
-            onClick={() => props.handleTimeFrameClick(key)}
-            isActive={props.activeButton === key}
+            onClick={() => dispatch(handleTimeFrameClick(key))}
+            isActive={activeButton === key}
           >
             {key}
           </Button>

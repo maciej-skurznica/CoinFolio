@@ -12,16 +12,18 @@ import {
 import storage from "redux-persist/lib/storage";
 // Reducers imports
 import app from "store/appSlice";
+import charts from "store/chartsSlice";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["app"],
+  whitelist: ["app", "charts"],
 };
 
 const reducer = combineReducers({
   app,
+  charts,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
