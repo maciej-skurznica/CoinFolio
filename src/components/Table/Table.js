@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { TableSort, TableCoin, TableCoinSkeleton, InfoInfiniteScroll } from "components";
+import { usePrevious } from "hooks";
 import { Container } from "./Table.styles";
 
 const Table = () => {
@@ -13,6 +14,18 @@ const Table = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
+  const [trigger, setTrigger] = useState(0);
+  const prevCurrency = usePrevious(currentCurrency);
+
+  useEffect(() => {
+    if (prevCurrency === undefined) {
+      return;
+    }
+    setPage(1);
+    setCoinsData([]);
+    setTrigger(trigger + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentCurrency]);
 
   useEffect(() => {
     async function fetchData() {
@@ -22,14 +35,9 @@ const Table = () => {
           `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currentCurrency}&order=market_cap_desc&per_page=50&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
           { signal: controller.signal }
         );
-
-        // Chinese but this is the only way I can compare old data versus new data
-        // If the data is the same it will not add new data to the old data array
-        if (coinsData?.[0]?.name !== data?.[0]?.name) {
-          setCoinsData([...coinsData, ...data]);
-          setIsLoading(false);
-          setHasMore(data.length === 50);
-        }
+        setCoinsData([...coinsData, ...data]);
+        setIsLoading(false);
+        setHasMore(data.length === 50);
       } catch (error) {
         toast.error("Error while loading coins data...", { toastId: "table" });
         setIsLoading(false);
@@ -38,7 +46,7 @@ const Table = () => {
     }
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, currentCurrency]);
+  }, [page, trigger]);
 
   const updatePageNumber = () => setPage(page + 1);
 
@@ -69,7 +77,7 @@ const Table = () => {
       ) : (
         Array(50)
           .fill(0)
-          .map((el) => <TableCoinSkeleton key={Math.random()} />)
+          .map(() => <TableCoinSkeleton key={Math.random()} />)
       )}
     </Container>
   );

@@ -6,8 +6,9 @@ import { Line } from "react-chartjs-2";
 import { BackgroundCoinChartTimeframes } from "components";
 import { useFetch, useLocalStorageAndState } from "hooks";
 import { timeFrames } from "assets/data";
+import loading from "assets/images/loading.svg";
 import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
-import { ChartContainer } from "./BackgroundCoinChart.styles";
+import { ChartContainer, LoadingDiv } from "./BackgroundCoinChart.styles";
 
 const BackgroundCoinChart = ({ coinData }) => {
   const currentCurrency = useSelector(({ app }) => app.currency);
@@ -15,7 +16,7 @@ const BackgroundCoinChart = ({ coinData }) => {
   const [activeButton, setActiveButton] = useLocalStorageAndState("activeButton", "6m");
   const { days, interval } = timeFrames[activeButton];
 
-  const [{ prices: coinPrices }, isLoading, hasError] = useFetch(
+  const [{ prices: coinPrices }, isLoading] = useFetch(
     `https://api.coingecko.com/api/v3/coins/${coinData.id}/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
     "background chart",
     [activeButton, currentCurrency],
@@ -26,7 +27,7 @@ const BackgroundCoinChart = ({ coinData }) => {
 
   const hourlyInterval = timeFrames[activeButton].interval === "hourly";
   const isPriceTrendUp = coinPrices?.[0]?.[1] <= coinPrices?.[coinPrices.length - 1]?.[1];
-  const hasData = !isLoading && !hasError && coinPrices.length;
+  const hasData = coinPrices?.length;
 
   return (
     <>
@@ -36,6 +37,11 @@ const BackgroundCoinChart = ({ coinData }) => {
         activeButton={activeButton}
       />
       <ChartContainer>
+        {isLoading && (
+          <LoadingDiv>
+            <img src={loading} alt="loading" />
+          </LoadingDiv>
+        )}
         {hasData && (
           <Line
             data={{
