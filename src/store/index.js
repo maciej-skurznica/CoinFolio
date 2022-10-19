@@ -14,16 +14,23 @@ import storage from "redux-persist/lib/storage";
 import app from "store/appSlice";
 import charts from "store/chartsSlice";
 
+const chartsPersistConfig = {
+  key: "charts",
+  storage,
+  whitelist: ["activeButton"],
+};
+
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["app", "charts"],
+  whitelist: ["app"],
+  blacklist: ["charts"],
 };
 
 const reducer = combineReducers({
   app,
-  charts,
+  charts: persistReducer(chartsPersistConfig, charts),
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

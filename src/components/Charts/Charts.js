@@ -1,21 +1,23 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ChartsBottom, BitcoinChart, VolumeChart } from "components";
-import { useFetch } from "hooks";
-import { timeFrames } from "assets/data";
+import { fetchCharts } from "store/chartsSlice";
 import { Container, Top } from "./Charts.styles";
 
 const Charts = () => {
   const currentCurrency = useSelector(({ app }) => app.currency);
   const activeButton = useSelector(({ charts }) => charts.activeButton);
+  const pricesBTC = useSelector(({ charts }) => charts.pricesBTC);
+  const volumesBTC = useSelector(({ charts }) => charts.volumesBTC);
+  const dispatch = useDispatch();
 
-  const { days, interval } = timeFrames[activeButton];
-
-  const [{ prices: pricesBTC, total_volumes: volumesBTC }] = useFetch(
-    `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
-    "charts",
-    [activeButton, currentCurrency],
-    { prices: [], total_volumes: [] }
-  );
+  useEffect(() => {
+    const promise = dispatch(fetchCharts());
+    return () => {
+      promise.abort();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeButton, currentCurrency]);
 
   return (
     <Container>

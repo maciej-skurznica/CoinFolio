@@ -28,7 +28,7 @@ const BitcoinChart = ({ pricesBTC }) => {
           BTC Price:
           <Value>
             {price ? (
-              <ValueWithCurrencySymbol value={roundToTwoDecimal(price)} />
+              <ValueWithCurrencySymbol value={roundToTwoDecimal(price)} flag="charts" />
             ) : (
               <Skeleton width={60} />
             )}
