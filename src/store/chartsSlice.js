@@ -5,14 +5,14 @@ import { timeFrames } from "assets/data";
 
 export const fetchCharts = createAsyncThunk(
   "charts/fetchCharts",
-  async (_, { getState, signal }) => {
+  async (coin, { getState, signal }) => {
     const currentCurrency = getState().app.currency;
     const activeButton = getState().charts.activeButton;
     const { days, interval } = timeFrames[activeButton];
 
     try {
       const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
+        `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
         { signal }
       );
       return { data, currentCurrency };
@@ -29,9 +29,10 @@ const chartsSlice = createSlice({
   name: "charts",
   initialState: {
     activeButton: "6m",
-    pricesBTC: [],
-    volumesBTC: [],
+    prices: [],
+    volumes: [],
     chartsCurrency: "usd",
+    isLoading: false,
   },
   reducers: {
     handleTimeFrameClick: (state, action) => {
@@ -39,10 +40,17 @@ const chartsSlice = createSlice({
     },
   },
   extraReducers: {
+    [fetchCharts.pending]: (state) => {
+      state.isLoading = true;
+    },
     [fetchCharts.fulfilled]: (state, { payload: { data, currentCurrency } }) => {
-      state.pricesBTC = data.prices;
-      state.volumesBTC = data.total_volumes;
+      state.prices = data.prices;
+      state.volumes = data.total_volumes;
       state.chartsCurrency = currentCurrency;
+      state.isLoading = false;
+    },
+    [fetchCharts.rejected]: (state) => {
+      state.isLoading = false;
     },
   },
 });

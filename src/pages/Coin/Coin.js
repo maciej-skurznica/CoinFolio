@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   BackgroundCoinChart,
   CoinConverter,
@@ -9,28 +10,35 @@ import {
   CoinSummary,
   CoinSummarySkeleton,
 } from "components";
-import { useFetch } from "hooks";
+import { useGetCoinDataQuery } from "store/coinGeckoApiSlice";
 import { Container, Description, InnerContainer } from "./Coin.styles";
 
 const Coin = () => {
   const { coin } = useParams();
+  const { data: coinData, isLoading, isError, error } = useGetCoinDataQuery(coin);
+  const history = useHistory();
 
-  const [coinData, isLoading, hasError] = useFetch(
-    `https://api.coingecko.com/api/v3/coins/${coin}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`,
-    "coin",
-    [coin],
-    {}
-  );
+  useEffect(() => {
+    if (isError) {
+      toast.error(
+        `Failed to load navbar data...\n${error?.data?.error || error?.error}`,
+        { toastId: "navbar" }
+      );
+      setTimeout(() => {
+        history.push("/coins");
+      }, 6000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const haveData = !isLoading && !hasError && Object.keys(coinData).length;
+  const haveData = !isLoading && !isError && Object.keys(coinData).length;
 
   return (
     <Container>
-      {hasError && <Redirect to="/coins" />}
       <InnerContainer>
         <Description>Summary</Description>
         {haveData ? <CoinSummary coinData={coinData} /> : <CoinSummarySkeleton />}

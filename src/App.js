@@ -23,7 +23,7 @@ const App = () => {
           <GlobalStyle />
           <Navbar />
           <Switch>
-            <Route exact path={["/", "/coins"]} component={Home} />
+            <Route exact path={["/", "/coins"]} render={(props) => <Home {...props} />} />
             <Route exact path="/coins/:coin" component={Coin} />
             <Route exact path="/portfolio" component={Portfolio} />
             <Route path="*" component={NotFound} />

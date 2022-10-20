@@ -14,7 +14,7 @@ import { ChartContainer, Container, Div, Text, Value } from "./VolumeChart.style
 const VolumeChart = () => {
   const currentCurrency = useSelector(({ app }) => app.currency);
   const activeButton = useSelector(({ charts }) => charts.activeButton);
-  const volumesBTC = useSelector(({ charts }) => charts.volumesBTC);
+  const volumesBTC = useSelector(({ charts }) => charts.volumes);
 
   const hourlyInterval = timeFrames[activeButton].interval === "hourly";
   const hasData = volumesBTC.length;

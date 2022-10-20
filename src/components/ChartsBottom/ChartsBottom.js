@@ -7,7 +7,7 @@ import { Button, Container, DateDisplay } from "./ChartsBottom.styles";
 
 const ChartsBottom = () => {
   const activeButton = useSelector(({ charts }) => charts.activeButton);
-  const pricesBTC = useSelector(({ charts }) => charts.pricesBTC);
+  const pricesBTC = useSelector(({ charts }) => charts.prices);
   const dispatch = useDispatch();
 
   const date = pricesBTC?.[pricesBTC.length - 1]?.[0];

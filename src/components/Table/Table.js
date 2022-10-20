@@ -17,10 +17,8 @@ const Table = () => {
   const prevCurrency = usePrevious(currentCurrency);
 
   useEffect(() => {
-    if (prevCurrency === undefined) {
-      return;
-    }
-    dispatch(reset());
+    prevCurrency !== undefined && dispatch(reset());
+    return () => dispatch(reset());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCurrency]);
 

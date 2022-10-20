@@ -10,7 +10,7 @@ const Charts = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const promise = dispatch(fetchCharts());
+    const promise = dispatch(fetchCharts("bitcoin"));
     return () => {
       promise.abort();
     };

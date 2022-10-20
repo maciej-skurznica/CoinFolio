@@ -1,27 +1,31 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { BackgroundCoinChartTimeframes } from "components";
-import { useFetch } from "hooks";
+import { fetchCharts } from "store/chartsSlice";
 import { timeFrames } from "assets/data";
 import loading from "assets/images/loading.svg";
 import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
 import { ChartContainer, LoadingDiv } from "./BackgroundCoinChart.styles";
 
-const BackgroundCoinChart = ({ coinData }) => {
+const BackgroundCoinChart = () => {
+  const { coin } = useParams();
   const currentCurrency = useSelector(({ app }) => app.currency);
   const activeButton = useSelector(({ charts }) => charts.activeButton);
+  const coinPrices = useSelector(({ charts }) => charts.prices);
+  const isLoading = useSelector(({ charts }) => charts.isLoading);
+  const dispatch = useDispatch();
 
-  const { days, interval } = timeFrames[activeButton];
-
-  const [{ prices: coinPrices }, isLoading] = useFetch(
-    `https://api.coingecko.com/api/v3/coins/${coinData.id}/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
-    "background chart",
-    [activeButton, currentCurrency],
-    []
-  );
+  useEffect(() => {
+    const promise = dispatch(fetchCharts(coin));
+    return () => {
+      promise.abort();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeButton, currentCurrency]);
 
   const hourlyInterval = timeFrames[activeButton].interval === "hourly";
   const isPriceTrendUp = coinPrices?.[0]?.[1] <= coinPrices?.[coinPrices.length - 1]?.[1];

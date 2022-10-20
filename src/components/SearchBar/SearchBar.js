@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ImSearch } from "react-icons/im";
 import { useOutsideClick } from "hooks";
+import { collapse, handleChange, handleClick } from "store/searchBarSlice";
 import {
   Container,
   SearchIcon,
@@ -9,18 +11,12 @@ import {
   Divider,
 } from "./SearchBar.styles";
 
-const SearchBar = (props) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [value, setValue] = useState("");
+const SearchBar = () => {
+  const isExpanded = useSelector(({ searchBar }) => searchBar.isExpanded);
+  const value = useSelector(({ searchBar }) => searchBar.value);
+  const dispatch = useDispatch();
 
-  const handleClick = () => setIsExpanded(!isExpanded);
-
-  const handleChange = (e) => setValue(e.target.value);
-
-  const ref = useOutsideClick(() => {
-    setIsExpanded(false);
-    setValue("");
-  });
+  const ref = useOutsideClick(() => dispatch(collapse()));
 
   return (
     <Container ref={ref}>
@@ -28,9 +24,9 @@ const SearchBar = (props) => {
         <ImSearch />
       </SearchIcon>
       <Input
-        onClick={handleClick}
+        onClick={() => dispatch(handleClick())}
         placeholder="Search..."
-        onChange={handleChange}
+        onChange={() => dispatch(handleChange())}
         value={value}
       />
       {isExpanded && (
