@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 // Reducers imports
 import app from "store/appSlice";
 import charts from "store/chartsSlice";
+import table from "store/tableSlice";
 
 const chartsPersistConfig = {
   key: "charts",
@@ -31,6 +32,7 @@ const persistConfig = {
 const reducer = combineReducers({
   app,
   charts: persistReducer(chartsPersistConfig, charts),
+  table,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

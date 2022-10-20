@@ -7,8 +7,6 @@ import { Container, Top } from "./Charts.styles";
 const Charts = () => {
   const currentCurrency = useSelector(({ app }) => app.currency);
   const activeButton = useSelector(({ charts }) => charts.activeButton);
-  const pricesBTC = useSelector(({ charts }) => charts.pricesBTC);
-  const volumesBTC = useSelector(({ charts }) => charts.volumesBTC);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,10 +20,10 @@ const Charts = () => {
   return (
     <Container>
       <Top>
-        <BitcoinChart pricesBTC={pricesBTC} />
-        <VolumeChart volumesBTC={volumesBTC} />
+        <BitcoinChart />
+        <VolumeChart />
       </Top>
-      <ChartsBottom date={pricesBTC?.[pricesBTC.length - 1]?.[0]} />
+      <ChartsBottom />
     </Container>
   );
 };

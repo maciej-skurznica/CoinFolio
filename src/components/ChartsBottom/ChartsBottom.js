@@ -5,11 +5,13 @@ import { handleTimeFrameClick } from "store/chartsSlice";
 import { timeFrames } from "assets/data";
 import { Button, Container, DateDisplay } from "./ChartsBottom.styles";
 
-const ChartsBottom = (props) => {
+const ChartsBottom = () => {
   const activeButton = useSelector(({ charts }) => charts.activeButton);
+  const pricesBTC = useSelector(({ charts }) => charts.pricesBTC);
   const dispatch = useDispatch();
 
-  const date = new Date(props.date).toLocaleString("locales", {
+  const date = pricesBTC?.[pricesBTC.length - 1]?.[0];
+  const newDate = new Date(date).toLocaleString("locales", {
     dateStyle: "short",
     timeStyle: "short",
   });
@@ -18,7 +20,7 @@ const ChartsBottom = (props) => {
     <Container>
       <DateDisplay>
         {"as of: "}
-        {date !== "Invalid Date" ? date : <Skeleton width={110} />}
+        {newDate !== "Invalid Date" ? newDate : <Skeleton width={110} />}
       </DateDisplay>
       <div>
         {Object.keys(timeFrames).map((key) => (

@@ -1,6 +1,6 @@
 import { Container, Div, Text } from "./TableSort.styles";
 
-const TableSort = (props) => {
+const TableSort = () => {
   return (
     <Container>
       <Text width={10} align={"left"}>

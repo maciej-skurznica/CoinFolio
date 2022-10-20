@@ -1,54 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { toast } from "react-toastify";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { TableSort, TableCoin, TableCoinSkeleton, InfoInfiniteScroll } from "components";
 import { usePrevious } from "hooks";
+import { increasePage, reset, fetchTableData } from "store/tableSlice";
 import { Container } from "./Table.styles";
 
 const Table = () => {
   const currentCurrency = useSelector(({ app }) => app.currency);
-
-  const [coinsData, setCoinsData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
-  const [trigger, setTrigger] = useState(0);
+  const hasMore = useSelector(({ table }) => table.hasMore);
+  const page = useSelector(({ table }) => table.page);
+  const trigger = useSelector(({ table }) => table.trigger);
+  const coinsData = useSelector(({ table }) => table.coinsData);
+  const isLoading = useSelector(({ table }) => table.isLoading);
+  const dispatch = useDispatch();
   const prevCurrency = usePrevious(currentCurrency);
 
   useEffect(() => {
     if (prevCurrency === undefined) {
       return;
     }
-    setPage(1);
-    setCoinsData([]);
-    setTrigger(trigger + 1);
+    dispatch(reset());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCurrency]);
 
   useEffect(() => {
-    async function fetchData() {
-      const controller = new AbortController();
-      try {
-        const { data } = await axios(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currentCurrency}&order=market_cap_desc&per_page=50&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
-          { signal: controller.signal }
-        );
-        setCoinsData([...coinsData, ...data]);
-        setIsLoading(false);
-        setHasMore(data.length === 50);
-      } catch (error) {
-        toast.error("Error while loading coins data...", { toastId: "table" });
-        setIsLoading(false);
-      }
-      return () => controller.abort();
-    }
-    fetchData();
+    const promise = dispatch(fetchTableData());
+    return () => promise.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, trigger]);
-
-  const updatePageNumber = () => setPage(page + 1);
 
   const haveData = !isLoading && coinsData.length;
 
@@ -66,7 +46,7 @@ const Table = () => {
           }}
           dataLength={coinsData.length}
           hasMore={hasMore}
-          next={updatePageNumber}
+          next={() => dispatch(increasePage())}
           loader={<InfoInfiniteScroll info={"Loading..."} />}
           endMessage={<InfoInfiniteScroll info={"Yay! You have seen it all"} />}
         >

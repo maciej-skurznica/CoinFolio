@@ -11,12 +11,12 @@ import { bigNumberConvertor, roundToTwoDecimal } from "utils";
 import { tooltipLabels, tooltipTitles, xScaleTicks } from "utils/chartsCallbacks";
 import { ChartContainer, Container, Div, Text, Value } from "./VolumeChart.styles";
 
-const VolumeChart = ({ volumesBTC }) => {
+const VolumeChart = () => {
   const currentCurrency = useSelector(({ app }) => app.currency);
   const activeButton = useSelector(({ charts }) => charts.activeButton);
+  const volumesBTC = useSelector(({ charts }) => charts.volumesBTC);
 
   const hourlyInterval = timeFrames[activeButton].interval === "hourly";
-
   const hasData = volumesBTC.length;
   const volume = volumesBTC?.[volumesBTC.length - 1]?.[1];
 
@@ -27,7 +27,7 @@ const VolumeChart = ({ volumesBTC }) => {
           BTC Volume 24h:
           <Value>
             {volume ? (
-              <ValueWithCurrencySymbol value={bigNumberConvertor(volume)} />
+              <ValueWithCurrencySymbol value={bigNumberConvertor(volume)} flag="charts" />
             ) : (
               <Skeleton width={48} />
             )}

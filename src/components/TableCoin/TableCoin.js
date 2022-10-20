@@ -13,7 +13,7 @@ import {
   StyledLink,
 } from "./TableCoin.styles";
 
-const TableCoin = (props) => {
+const TableCoin = ({ data }) => {
   const currentCurrency = useSelector(({ app }) => app.currency);
 
   const {
@@ -31,7 +31,7 @@ const TableCoin = (props) => {
     circulating_supply,
     total_supply,
     sparkline_in_7d: { price: priceData },
-  } = props.data;
+  } = data;
 
   return (
     <Container>
