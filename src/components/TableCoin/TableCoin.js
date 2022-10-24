@@ -1,5 +1,6 @@
+import { useSelector } from "react-redux";
 import { ProgressBarChart, TableSparkline } from "components";
-import { availableCurrencies } from "assets/data/data";
+import { availableCurrencies } from "assets/data";
 import {
   Container,
   CurrencySymbol,
@@ -12,7 +13,9 @@ import {
   StyledLink,
 } from "./TableCoin.styles";
 
-const TableCoin = (props) => {
+const TableCoin = ({ data }) => {
+  const currentCurrency = useSelector(({ app }) => app.currency);
+
   const {
     market_cap_rank,
     image,
@@ -28,7 +31,7 @@ const TableCoin = (props) => {
     circulating_supply,
     total_supply,
     sparkline_in_7d: { price: priceData },
-  } = props.data;
+  } = data;
 
   return (
     <Container>
@@ -46,7 +49,7 @@ const TableCoin = (props) => {
       </StyledLink>
       <Value width={100} align={"left"}>
         <CurrencySymbol>
-          {availableCurrencies[props.currentCurrency.toLowerCase()].symbol}
+          {availableCurrencies[currentCurrency.toLowerCase()].symbol}
         </CurrencySymbol>
         <Price>{current_price}</Price>
       </Value>
@@ -65,19 +68,13 @@ const TableCoin = (props) => {
         <Value width={170}>
           <ProgressBarChart
             width={170}
-            currentCurrency={props.currentCurrency}
             left={total_volume}
             right={market_cap}
             currencySymbolNeeded
           />
         </Value>
         <Value width={170}>
-          <ProgressBarChart
-            width={170}
-            currentCurrency={props.currentCurrency}
-            left={circulating_supply}
-            right={total_supply}
-          />
+          <ProgressBarChart width={170} left={circulating_supply} right={total_supply} />
         </Value>
       </Div>
       <Value width={180}>

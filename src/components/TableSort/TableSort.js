@@ -1,15 +1,15 @@
 import { Container, Div, Text } from "./TableSort.styles";
 
-const TableSort = (props) => {
+const TableSort = () => {
   return (
     <Container>
-      <Text width={10} align={"left"}>
+      <Text width={10} align="left">
         #
       </Text>
-      <Text width={150} align={"left"} margin={2}>
+      <Text width={150} align="left" margin={2}>
         NAME
       </Text>
-      <Text width={100} align={"left"} margin={0.6}>
+      <Text width={100} align="left" margin={0.6}>
         PRICE
       </Text>
       <Div width={195}>

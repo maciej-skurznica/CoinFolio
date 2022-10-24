@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useOutsideClick } from "hooks";
-import { availableCurrencies as ac } from "assets/data/data";
+import { toggleCurrency } from "store/appSlice";
+import { availableCurrencies as ac } from "assets/data";
 import {
   Container,
   Ticker,
@@ -9,8 +11,11 @@ import {
   InnerCurrency,
 } from "./Currency.styles";
 
-const Currency = (props) => {
+const Currency = () => {
   const [hasDropdown, setHasDropdown] = useState(false);
+
+  const currency = useSelector(({ app }) => app.currency);
+  const dispatch = useDispatch();
 
   const handleClick = () => setHasDropdown(!hasDropdown);
 
@@ -20,14 +25,14 @@ const Currency = (props) => {
 
   return (
     <Container ref={ref}>
-      <Ticker onClick={handleClick}>{props.currentCurrency}</Ticker>
+      <Ticker onClick={handleClick}>{currency}</Ticker>
       {hasDropdown && (
         <CurrencyDropdown>
           <InnerDiv>
             {Object.keys(ac).map((key) => (
               <InnerCurrency
                 key={key}
-                onClick={() => props.toggleCurrency(ac[key].ticker, handleClick)}
+                onClick={() => dispatch(toggleCurrency(ac[key].ticker)) && handleClick()}
               >
                 {ac[key].ticker}
               </InnerCurrency>

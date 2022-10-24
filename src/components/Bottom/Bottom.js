@@ -1,20 +1,33 @@
-import React from "react";
-import { useFetch } from "hooks";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { BottomSkeleton, ProgressBar } from "components";
-import { availableCurrencies } from "assets/data/data";
-import { icons } from "assets/images/icons";
+import { availableCurrencies } from "assets/data";
+import { icons } from "assets/images";
 import { bigNumberConvertor } from "utils";
+import { useGetGlobalDataQuery } from "store/coinGeckoApiSlice";
 import { CapChange, Container, Div, Icon, Key, Symbol, Value } from "./Bottom.styles";
 
-const Bottom = ({ currentCurrency }) => {
-  const [marketData, isLoading, hasError] = useFetch(
-    "https://api.coingecko.com/api/v3/global",
-    "navbar",
-    [],
-    {}
-  );
+const Bottom = () => {
+  const currentCurrencyLowerCase = useSelector(({ app }) => app.currency.toLowerCase());
+  const {
+    data: globalData,
+    isLoading,
+    isError,
+    error,
+  } = useGetGlobalDataQuery(undefined, { pollingInterval: 600000 });
 
-  const haveData = !isLoading && !hasError && Object.keys(marketData.data).length;
+  useEffect(() => {
+    if (isError) {
+      toast.error(
+        `Failed to load navbar data...\n${error?.data?.error || error?.error}`,
+        { toastId: "navbar" }
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError]);
+
+  const haveData = !isLoading && !isError && Object.keys(globalData.data).length;
   const {
     active_cryptocurrencies: activeCrypto,
     markets,
@@ -22,7 +35,7 @@ const Bottom = ({ currentCurrency }) => {
     market_cap_change_percentage_24h_usd: marketCapChange,
     total_volume,
     market_cap_percentage,
-  } = marketData.data || {};
+  } = globalData?.data || {};
 
   return (
     <Container>
@@ -38,10 +51,8 @@ const Bottom = ({ currentCurrency }) => {
             <Key>
               Market Cap:
               <Value>
-                <Symbol>
-                  {availableCurrencies[currentCurrency.toLowerCase()].symbol}
-                </Symbol>
-                {bigNumberConvertor(total_market_cap[currentCurrency.toLowerCase()])}
+                <Symbol>{availableCurrencies[currentCurrencyLowerCase].symbol}</Symbol>
+                {bigNumberConvertor(total_market_cap[currentCurrencyLowerCase])}
                 <CapChange change={marketCapChange}>
                   {marketCapChange >= 0 ? "↑" : "↓"}
                 </CapChange>
@@ -50,10 +61,8 @@ const Bottom = ({ currentCurrency }) => {
             <Key>
               24h Vol:
               <Value>
-                <Symbol>
-                  {availableCurrencies[currentCurrency.toLowerCase()].symbol}
-                </Symbol>
-                {bigNumberConvertor(total_volume[currentCurrency.toLowerCase()])}
+                <Symbol>{availableCurrencies[currentCurrencyLowerCase].symbol}</Symbol>
+                {bigNumberConvertor(total_volume[currentCurrencyLowerCase])}
               </Value>
             </Key>
             <Key>
@@ -71,7 +80,7 @@ const Bottom = ({ currentCurrency }) => {
             <ProgressBar value={market_cap_percentage.eth} />
           </>
         ) : (
-          !hasError && <BottomSkeleton />
+          !isError && <BottomSkeleton />
         )}
       </Div>
     </Container>

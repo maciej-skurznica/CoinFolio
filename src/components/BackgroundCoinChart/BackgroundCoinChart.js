@@ -1,38 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { BackgroundCoinChartTimeframes } from "components";
-import { useFetch, useLocalStorageAndState } from "hooks";
-import { timeFrames } from "assets/data/data";
+import { fetchCharts } from "store/chartsSlice";
+import { timeFrames } from "assets/data";
+import loading from "assets/images/loading.svg";
 import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
-import { ChartContainer } from "./BackgroundCoinChart.styles";
+import { ChartContainer, LoadingDiv } from "./BackgroundCoinChart.styles";
 
-const BackgroundCoinChart = ({ coinData, currentCurrency }) => {
-  const [activeButton, setActiveButton] = useLocalStorageAndState("activeButton", "6m");
-  const { days, interval } = timeFrames[activeButton];
+const BackgroundCoinChart = () => {
+  const { coin } = useParams();
+  const currentCurrency = useSelector(({ app }) => app.currency);
+  const activeButton = useSelector(({ charts }) => charts.activeButton);
+  const coinPrices = useSelector(({ charts }) => charts.prices);
+  const isLoading = useSelector(({ charts }) => charts.isLoading);
+  const dispatch = useDispatch();
 
-  const [{ prices: coinPrices }, isLoading, hasError] = useFetch(
-    `https://api.coingecko.com/api/v3/coins/${coinData.id}/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
-    "background chart",
-    [activeButton, currentCurrency],
-    []
-  );
-
-  const handleTimeFrameClick = (key) => setActiveButton(key);
+  useEffect(() => {
+    const promise = dispatch(fetchCharts(coin));
+    return () => {
+      promise.abort();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeButton, currentCurrency]);
 
   const hourlyInterval = timeFrames[activeButton].interval === "hourly";
   const isPriceTrendUp = coinPrices?.[0]?.[1] <= coinPrices?.[coinPrices.length - 1]?.[1];
-  const hasData = !isLoading && !hasError && coinPrices.length;
+  const hasData = coinPrices?.length;
 
   return (
     <>
-      <BackgroundCoinChartTimeframes
-        handleTimeFrameClick={handleTimeFrameClick}
-        timeFrames={timeFrames}
-        activeButton={activeButton}
-      />
+      <BackgroundCoinChartTimeframes />
       <ChartContainer>
+        {isLoading && (
+          <LoadingDiv>
+            <img src={loading} alt="loading" />
+          </LoadingDiv>
+        )}
         {hasData && (
           <Line
             data={{

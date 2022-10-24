@@ -17,7 +17,7 @@ import {
   WebsiteTile,
 } from "./CoinSummarySkeleton.styles";
 
-const CoinSummarySkeleton = (props) => {
+const CoinSummarySkeleton = () => {
   return (
     <Summary>
       <SumLeft>

@@ -1,25 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { Home, Coin, Portfolio, NotFound } from "pages";
 import { Navbar } from "components";
-import { useLocalStorageAndState } from "hooks";
 import { GlobalStyle, StyledToastContainer } from "styles/global";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "styles/themes";
 
 const App = () => {
-  const [currency, setCurrency] = useLocalStorageAndState("currency", "USD");
-  const [darkThemeOn, setDarkThemeOn] = useLocalStorageAndState("darkThemeOn", false);
-
-  const toggleCurrency = (chosenCurrency, handleClick) => {
-    handleClick();
-    setCurrency(chosenCurrency);
-  };
-
-  const toggleTheme = () => setDarkThemeOn(!darkThemeOn);
+  const darkThemeOn = useSelector(({ app }) => app.darkThemeOn);
 
   return (
     <ThemeProvider theme={darkThemeOn ? darkTheme : lightTheme}>
@@ -29,23 +21,10 @@ const App = () => {
       >
         <Router>
           <GlobalStyle />
-          <Navbar
-            toggleCurrency={toggleCurrency}
-            currentCurrency={currency}
-            toggleTheme={toggleTheme}
-            darkThemeOn={darkThemeOn}
-          />
+          <Navbar />
           <Switch>
-            <Route
-              exact
-              path={["/", "/coins"]}
-              component={(props) => <Home {...props} currentCurrency={currency} />}
-            />
-            <Route
-              exact
-              path="/coins/:coin"
-              render={(props) => <Coin {...props} currentCurrency={currency} />}
-            />
+            <Route exact path={["/", "/coins"]} render={(props) => <Home {...props} />} />
+            <Route exact path="/coins/:coin" component={Coin} />
             <Route exact path="/portfolio" component={Portfolio} />
             <Route path="*" component={NotFound} />
           </Switch>

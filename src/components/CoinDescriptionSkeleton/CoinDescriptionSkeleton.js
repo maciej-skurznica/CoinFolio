@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Description, Links, LinkTile } from "./CoinDescriptionSkeleton.styles";
 
-const CoinDescriptionSkeleton = (props) => {
+const CoinDescriptionSkeleton = () => {
   return (
     <>
       <Description>

@@ -1,9 +1,14 @@
+import { useParams } from "react-router-dom";
 import { FaLink } from "react-icons/fa";
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useGetCoinDataQuery } from "store/coinGeckoApiSlice";
 import { Description, IconDiv, Links, LinkTile } from "./CoinDescription.styles";
 
-const CoinDescription = ({ coinData }) => {
+const CoinDescription = () => {
+  const { coin } = useParams();
+  const { data: coinData } = useGetCoinDataQuery(coin);
+
   const {
     description: { en: text },
     links: { blockchain_site: links },

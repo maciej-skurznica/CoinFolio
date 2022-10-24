@@ -2,7 +2,7 @@ import { CgArrowsExchangeAlt } from "react-icons/cg";
 import { Div } from "ui";
 import { Container, ConvertIcon, Left, InputOnRight } from "./CoinConverterLoader.styles";
 
-const CoinConverterLoader = (props) => {
+const CoinConverterLoader = () => {
   return (
     <Container>
       <Div>

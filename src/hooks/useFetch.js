@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const useFetch = (url, toastId, arrayOfVarsToWatch, initialDateValue = null) => {
-  const [data, setData] = useState(initialDateValue);
+const useFetch = (url, toastId, arrayOfVarsToWatch, initialDataValue = null) => {
+  const [data, setData] = useState(initialDataValue);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -12,6 +12,7 @@ const useFetch = (url, toastId, arrayOfVarsToWatch, initialDateValue = null) => 
       async function fetchData() {
         const controller = new AbortController();
         try {
+          setIsLoading(true);
           const { data } = await axios(url, { signal: controller.signal });
           setData(data);
           setIsLoading(false);
