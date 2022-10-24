@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
 import { availableCurrencies } from "assets/data";
+import { useSelector } from "react-redux";
 import { bigNumberConvertor } from "utils";
 import {
   Bar,
@@ -12,25 +12,20 @@ import {
 } from "./ProgressBarChart.styles";
 
 const ProgressBarChart = ({ left, right, width, currencySymbolNeeded }) => {
-  const currentCurrencyLowerCase = useSelector(({ app }) => app.currency.toLowerCase());
+  const symbol = useSelector(({ app }) => {
+    const currency = app.currency.toLowerCase();
+    return availableCurrencies[currency].symbol;
+  });
 
   return (
     <Container w={width}>
       <Numbers>
         <Left>
-          {currencySymbolNeeded && (
-            <CurrencySymbol>
-              {availableCurrencies[currentCurrencyLowerCase].symbol}
-            </CurrencySymbol>
-          )}
+          {currencySymbolNeeded && <CurrencySymbol>{symbol}</CurrencySymbol>}
           {bigNumberConvertor(left)}
         </Left>
         <Right>
-          {currencySymbolNeeded && (
-            <CurrencySymbol>
-              {availableCurrencies[currentCurrencyLowerCase].symbol}
-            </CurrencySymbol>
-          )}
+          {currencySymbolNeeded && <CurrencySymbol>{symbol}</CurrencySymbol>}
           {bigNumberConvertor(right) || "∞"}
         </Right>
       </Numbers>

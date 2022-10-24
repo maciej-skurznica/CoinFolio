@@ -1,19 +1,17 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ImSearch } from "react-icons/im";
 import { useOutsideClick } from "hooks";
+import { ImSearch } from "react-icons/im";
+import { useDispatch, useSelector } from "react-redux";
 import { collapse, handleChange, handleClick } from "store/searchBarSlice";
 import {
   Container,
-  SearchIcon,
+  Divider,
   Input,
   SearchBarDropdown,
-  Divider,
+  SearchIcon,
 } from "./SearchBar.styles";
 
 const SearchBar = () => {
-  const isExpanded = useSelector(({ searchBar }) => searchBar.isExpanded);
-  const value = useSelector(({ searchBar }) => searchBar.value);
+  const { isExpanded, value } = useSelector(({ searchBar }) => searchBar);
   const dispatch = useDispatch();
 
   const ref = useOutsideClick(() => dispatch(collapse()));

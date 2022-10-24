@@ -6,7 +6,7 @@ const Top = () => {
   return (
     <Container>
       <Div>
-        <StyledLink to={"/"}>
+        <StyledLink to="/">
           <Img src={logo} alt="logo" />
           CoinFolio
         </StyledLink>
