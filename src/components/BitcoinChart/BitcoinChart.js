@@ -13,7 +13,7 @@ import { ChartContainer, Container, Div, Text, Value } from "./BitcoinChart.styl
 
 const BitcoinChart = () => {
   const currentCurrency = useSelector(({ app }) => app.currency);
-  const { activeButton, pricesBTC } = useSelector(({ charts }) => charts);
+  const { activeButton, prices: pricesBTC } = useSelector(({ charts }) => charts);
 
   const hourlyInterval = timeFrames[activeButton].interval === "hourly";
   const hasData = pricesBTC.length;
