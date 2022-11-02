@@ -1,22 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import {
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 // Reducers imports
-import coinGeckoApi from "store/coinGeckoApiSlice";
 import app from "store/appSlice";
 import charts from "store/chartsSlice";
-import table from "store/tableSlice";
-import searchBar from "store/searchBarSlice";
 import coinConverter from "store/coinConverterSlice";
+import coinGeckoApi from "store/coinGeckoApiSlice";
+import searchBar from "store/searchBarSlice";
+import table from "store/tableSlice";
 
 const chartsPersistConfig = {
   key: "charts",
@@ -43,7 +43,7 @@ const reducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-export default configureStore({
+const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -52,3 +52,8 @@ export default configureStore({
       },
     }).concat(coinGeckoApi.middleware),
 });
+
+export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type StoreDispatch = typeof store.dispatch;

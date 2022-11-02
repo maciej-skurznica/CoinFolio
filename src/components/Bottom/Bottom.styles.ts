@@ -37,13 +37,13 @@ export const Symbol = styled.div`
   color: ${({ theme }) => theme.contrast};
 `;
 
-export const CapChange = styled.div`
+export const CapChange = styled.div<{ change: number }>`
   margin-left: 0.15em;
   color: ${(props) => (props.change >= 0 ? "green" : "red")};
   height: 1.3em;
 `;
 
-export const Icon = styled.div`
+export const Icon = styled.div<{ icon: string; larger?: boolean }>`
   margin-right: ${(props) => (props.larger ? "0" : "0.3em")};
   margin-left: ${(props) => (props.larger ? "-0.3em" : "0.2em")};
   background-image: url(${(props) => props.icon});

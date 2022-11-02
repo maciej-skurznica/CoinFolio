@@ -1,16 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+type SearchBarState = {
+  isExpanded: boolean;
+  value: string;
+};
+
+const initialState: SearchBarState = {
+  isExpanded: false,
+  value: "",
+};
 
 export const searchBarSlice = createSlice({
   name: "searchBar",
-  initialState: {
-    isExpanded: false,
-    value: "",
-  },
+  initialState,
   reducers: {
     handleClick: (state) => {
       state.isExpanded = !state.isExpanded;
     },
-    handleChange: (state, action) => {
+    handleChange: (state, action: PayloadAction<string>) => {
       state.value = action.payload;
     },
     collapse: (state) => {

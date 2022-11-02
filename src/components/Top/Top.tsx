@@ -1,3 +1,4 @@
+import React from "react";
 import { RightTop } from "components";
 import logo from "assets/images/logo.png";
 import { Container, Div, StyledLink, Img } from "./Top.styles";

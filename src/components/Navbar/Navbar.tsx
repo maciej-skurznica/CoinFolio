@@ -1,4 +1,6 @@
-import { Middle, Top, Bottom } from "components";
+import React from "react";
+// local imports
+import { Bottom, Middle, Top } from "components";
 
 const Navbar = () => {
   return (

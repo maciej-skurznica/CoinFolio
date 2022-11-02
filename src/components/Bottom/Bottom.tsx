@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { BottomSkeleton, ProgressBar } from "components";
+// local imports
 import { availableCurrencies } from "assets/data";
 import { icons } from "assets/images";
-import { bigNumberConvertor } from "utils";
+import { BottomSkeleton, ProgressBar } from "components";
 import { useGetGlobalDataQuery } from "store/coinGeckoApiSlice";
+import { useStoreSelector } from "store/hooks";
+import { bigNumberConvertor } from "utils";
 import { CapChange, Container, Div, Icon, Key, Symbol, Value } from "./Bottom.styles";
 
 const Bottom = () => {
-  const currentCurrencyLowerCase = useSelector(({ app }) => app.currency.toLowerCase());
+  const currentCurrencyLowerCase = useStoreSelector(({ app }) =>
+    app.currency.toLowerCase()
+  );
   const {
     data: globalData,
     isLoading,
@@ -19,10 +22,15 @@ const Bottom = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(
-        `Failed to load navbar data...\n${error?.data?.error || error?.error}`,
-        { toastId: "navbar" }
-      );
+      let errorMessage;
+      if ("status" in error) {
+        errorMessage = "error" in error ? error.error : JSON.stringify(error.data);
+      } else {
+        errorMessage = error.message;
+      }
+      toast.error(`Failed to load navbar data...\n${errorMessage}}`, {
+        toastId: "navbar",
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError]);

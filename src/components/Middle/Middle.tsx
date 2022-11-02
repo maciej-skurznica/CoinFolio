@@ -1,7 +1,8 @@
+import React from "react";
 import { SearchBar } from "components";
 import { Container, Div, Menu, StyledLink } from "./Middle.styles";
 
-const Middle = (props) => {
+const Middle = () => {
   return (
     <Container>
       <Div>
