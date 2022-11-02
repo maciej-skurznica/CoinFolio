@@ -1,12 +1,16 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+// local imports
+import { AppState } from "types/AppState";
+import { Coin } from "types/Coin";
 
 export const fetchTableData = createAsyncThunk(
   "table/fetchTableData",
   async (_, { getState, signal }) => {
-    const currentCurrency = getState().app.currency;
-    const page = getState().table.page;
+    const state = getState() as { app: AppState; table: TableState };
+    const currentCurrency = state.app.currency;
+    const page = state.table.page;
 
     try {
       const { data } = await axios(
@@ -14,24 +18,35 @@ export const fetchTableData = createAsyncThunk(
         { signal }
       );
       return data;
-    } catch (error) {
-      error.name !== "CanceledError" &&
-        toast.error(`Failed to load table data...\n${error.message}`, {
+    } catch (error: unknown) {
+      const err = error as Error;
+      err.name !== "CanceledError" &&
+        toast.error(`Failed to load table data...\n${err.message}`, {
           toastId: "table",
         });
     }
   }
 );
 
+type TableState = {
+  coinsData: Coin[];
+  isLoading: boolean;
+  hasMore: boolean;
+  page: number;
+  trigger: number;
+};
+
+const initialState: TableState = {
+  coinsData: [],
+  isLoading: true,
+  hasMore: true,
+  page: 1,
+  trigger: 0,
+};
+
 export const tableSlice = createSlice({
   name: "table",
-  initialState: {
-    coinsData: [],
-    isLoading: true,
-    hasMore: true,
-    page: 1,
-    trigger: 0,
-  },
+  initialState,
   reducers: {
     increasePage: (state) => {
       state.page += 1;
@@ -42,15 +57,15 @@ export const tableSlice = createSlice({
       state.coinsData = [];
     },
   },
-  extraReducers: {
-    [fetchTableData.fulfilled]: (state, { payload }) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchTableData.fulfilled, (state, { payload }) => {
       state.coinsData = [...state.coinsData, ...payload];
       state.isLoading = false;
       state.hasMore = payload.length === 50;
-    },
-    [fetchTableData.rejected]: (state) => {
+    });
+    builder.addCase(fetchTableData.rejected, (state) => {
       state.isLoading = false;
-    },
+    });
   },
 });
 

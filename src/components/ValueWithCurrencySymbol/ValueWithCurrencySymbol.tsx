@@ -1,9 +1,16 @@
-import { useSelector } from "react-redux";
+import React from "react";
+// local imports
 import { availableCurrencies } from "assets/data";
+import { useStoreSelector } from "store/hooks";
 import { Symbol, Value } from "./ValueWithCurrencySymbol.styles";
 
-const ValueWithCurrencySymbol = ({ value, flag }) => {
-  const currentCurrencyLowerCase = useSelector((state) => {
+type ValueWithCurrencySymbolProps = {
+  value: number | string;
+  flag?: "charts";
+};
+
+const ValueWithCurrencySymbol = ({ value, flag }: ValueWithCurrencySymbolProps) => {
+  const currentCurrencyLowerCase = useStoreSelector((state) => {
     switch (flag) {
       case "charts":
         return state.charts.chartsCurrency.toLowerCase();

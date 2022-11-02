@@ -1,8 +1,10 @@
+import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Container, Value, Div } from "./TableCoinSkeleton.styles";
+// local imports
+import { Container, Div, Value } from "./TableCoinSkeleton.styles";
 
-const TableCoinSkeleton = (props) => {
+const TableCoinSkeleton = () => {
   return (
     <Container>
       <Value>

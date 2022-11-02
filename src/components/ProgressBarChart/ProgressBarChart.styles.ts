@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ w: number }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,12 +34,15 @@ export const Bar = styled.div`
   margin-top: 2px;
 `;
 
-export const Fill = styled.div.attrs((props) => ({
-  style: {
-    width: (props.left * 100) / props.right + "%",
-    maxWidth: "100%",
-  },
-}))`
+export const Fill = styled.div.attrs(
+  (props: { left: number; right: number }) =>
+    ({
+      style: {
+        width: (props.left * 100) / props.right + "%",
+        maxWidth: "100%",
+      },
+    } as { style: { width: string; maxWidth: string }; left: number; right: number })
+)`
   height: 5px;
   border-radius: 2.5px;
   background-color: #967e76;

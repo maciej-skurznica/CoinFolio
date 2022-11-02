@@ -1,23 +1,25 @@
-import { InfoInfiniteScroll, TableCoin, TableCoinSkeleton, TableSort } from "components";
-import { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useDispatch, useSelector } from "react-redux";
+// local imports
+import { InfoInfiniteScroll, TableCoin, TableCoinSkeleton, TableSort } from "components";
+import { useStoreDispatch, useStoreSelector } from "store/hooks";
 import { fetchTableData, increasePage, reset } from "store/tableSlice";
+import { Coin } from "types/Coin";
 import { Container } from "./Table.styles";
 
 const Table = () => {
-  const currentCurrency = useSelector(({ app }) => app.currency);
-  const { hasMore, page, trigger, coinsData, isLoading } = useSelector(
+  const currentCurrency = useStoreSelector(({ app }) => app.currency);
+  const { hasMore, page, trigger, coinsData, isLoading } = useStoreSelector(
     ({ table }) => table
   );
-  const dispatch = useDispatch();
+  const dispatch = useStoreDispatch();
 
   const nextCallback = useCallback(() => {
     dispatch(increasePage());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, increasePage]);
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     return () => dispatch(reset());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCurrency]);
@@ -48,7 +50,7 @@ const Table = () => {
           loader={<InfoInfiniteScroll info={"Loading..."} />}
           endMessage={<InfoInfiniteScroll info={"Yay! You have seen it all"} />}
         >
-          {coinsData.map((coin) => (
+          {coinsData.map((coin: Coin) => (
             <TableCoin key={coin.name} data={coin} />
           ))}
         </InfiniteScroll>

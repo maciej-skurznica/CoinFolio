@@ -20,7 +20,7 @@ export const Container = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.main};
 `;
 
-export const Text = styled.div`
+export const Text = styled.div<{ width: number; align?: string; margin?: number }>`
   display: flex;
   width: ${(props) => `${props.width}px`};
   justify-content: ${(props) => (props.align === "left" ? "flex-start" : "center")};
@@ -28,7 +28,7 @@ export const Text = styled.div`
   box-sizing: border-box;
 `;
 
-export const Div = styled.div`
+export const Div = styled.div<{ width: number }>`
   display: flex;
   justify-content: space-between;
   align-items: center;

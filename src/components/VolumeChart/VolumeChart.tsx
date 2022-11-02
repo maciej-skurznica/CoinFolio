@@ -1,19 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
-// eslint-disable-next-line no-unused-vars
-import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { ValueWithCurrencySymbol } from "components";
+// local imports
 import { timeFrames } from "assets/data";
+import { ValueWithCurrencySymbol } from "components";
+import { useStoreSelector } from "store/hooks";
 import { bigNumberConvertor, roundToTwoDecimal } from "utils";
 import { tooltipLabels, tooltipTitles, xScaleTicks } from "utils/chartsCallbacks";
 import { ChartContainer, Container, Div, Text, Value } from "./VolumeChart.styles";
 
 const VolumeChart = () => {
-  const currentCurrency = useSelector(({ app }) => app.currency);
-  const { activeButton, volumes: volumesBTC } = useSelector(({ charts }) => charts);
+  const currentCurrency = useStoreSelector(({ app }) => app.currency);
+  const { activeButton, volumes: volumesBTC } = useStoreSelector(({ charts }) => charts);
 
   const hourlyInterval = timeFrames[activeButton].interval === "hourly";
   const hasData = volumesBTC.length;

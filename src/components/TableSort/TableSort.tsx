@@ -1,3 +1,4 @@
+import React from "react";
 import { Container, Div, Text } from "./TableSort.styles";
 
 const TableSort = () => {

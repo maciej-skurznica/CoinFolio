@@ -1,14 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { handleTimeFrameClick } from "store/chartsSlice";
+// local imports
 import { timeFrames } from "assets/data";
+import { handleTimeFrameClick } from "store/chartsSlice";
+import { useStoreDispatch, useStoreSelector } from "store/hooks";
 import { Button, Container, DateDisplay } from "./ChartsBottom.styles";
 
 const ChartsBottom = () => {
-  const activeButton = useSelector(({ charts }) => charts.activeButton);
-  const pricesBTC = useSelector(({ charts }) => charts.prices);
-  const dispatch = useDispatch();
+  const activeButton = useStoreSelector(({ charts }) => charts.activeButton);
+  const pricesBTC = useStoreSelector(({ charts }) => charts.prices);
+  const dispatch = useStoreDispatch();
 
   const date = pricesBTC?.[pricesBTC.length - 1]?.[0];
   const newDate = new Date(date).toLocaleString("locales", {

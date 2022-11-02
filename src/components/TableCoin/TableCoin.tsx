@@ -1,6 +1,9 @@
-import { useSelector } from "react-redux";
-import { ProgressBarChart, TableSparkline } from "components";
+import React from "react";
+// local imports
 import { availableCurrencies } from "assets/data";
+import { ProgressBarChart, TableSparkline } from "components";
+import { useStoreSelector } from "store/hooks";
+import { TableCoinProps } from "types/TableCoinProps";
 import {
   Container,
   CurrencySymbol,
@@ -8,13 +11,13 @@ import {
   Icon,
   Name,
   Price,
+  StyledLink,
   Value,
   ValueChange,
-  StyledLink,
 } from "./TableCoin.styles";
 
-const TableCoin = ({ data }) => {
-  const currentCurrency = useSelector(({ app }) => app.currency);
+const TableCoin = ({ data }: TableCoinProps) => {
+  const currentCurrency = useStoreSelector(({ app }) => app.currency);
 
   const {
     market_cap_rank,
@@ -35,11 +38,11 @@ const TableCoin = ({ data }) => {
 
   return (
     <Container>
-      <Value width={10} align={"left"}>
+      <Value width={10} align="left">
         {market_cap_rank}
       </Value>
       <StyledLink to={`/coins/${id}`}>
-        <Value width={150} align={"left"}>
+        <Value width={150} align="left">
           <Icon style={{ backgroundImage: `url(${image})` }} />
           <div>
             <Name>{name}</Name>
@@ -47,7 +50,7 @@ const TableCoin = ({ data }) => {
           </div>
         </Value>
       </StyledLink>
-      <Value width={100} align={"left"}>
+      <Value width={100} align="left">
         <CurrencySymbol>
           {availableCurrencies[currentCurrency.toLowerCase()].symbol}
         </CurrencySymbol>

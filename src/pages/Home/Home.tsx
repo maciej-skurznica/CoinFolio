@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Table, Charts } from "components";
+import React, { useEffect, useState } from "react";
+// local imports
+import { Charts, Table } from "components";
 import { BackToTop, Container } from "./Home.styles";
 
 window.onbeforeunload = function () {

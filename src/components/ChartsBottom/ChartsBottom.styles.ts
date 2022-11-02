@@ -17,7 +17,7 @@ export const Container = styled.div`
   z-index: 0;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{ isActive: boolean }>`
   color: ${({ theme }) => theme.contrast};
   border: none;
   background-color: ${({ theme }) => theme.main};

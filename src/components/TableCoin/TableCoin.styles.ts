@@ -17,14 +17,14 @@ export const Container = styled.div`
   border-radius: 5px;
 `;
 
-export const Value = styled.div`
+export const Value = styled.div<{ width: number; align?: string }>`
   display: flex;
   width: ${(props) => `${props.width}px`};
   justify-content: ${(props) => (props.align === "left" ? "flex-start" : "center")};
   align-items: center;
 `;
 
-export const ValueChange = styled.div`
+export const ValueChange = styled.div<{ width: number }>`
   width: ${(props) => `${props.width}px`};
   display: flex;
   justify-content: center;
@@ -32,7 +32,7 @@ export const ValueChange = styled.div`
   color: ${(props) => (props.color === "red" ? "rgb(209,78,77)" : "rgb(42,141,120)")};
 `;
 
-export const Div = styled.div`
+export const Div = styled.div<{ width: number }>`
   display: flex;
   justify-content: space-between;
   align-items: center;

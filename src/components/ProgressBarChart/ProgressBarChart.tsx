@@ -1,5 +1,7 @@
+import React from "react";
+// local
 import { availableCurrencies } from "assets/data";
-import { useSelector } from "react-redux";
+import { useStoreSelector } from "store/hooks";
 import { bigNumberConvertor } from "utils";
 import {
   Bar,
@@ -11,8 +13,20 @@ import {
   Right,
 } from "./ProgressBarChart.styles";
 
-const ProgressBarChart = ({ left, right, width, currencySymbolNeeded }) => {
-  const symbol = useSelector(({ app }) => {
+type ProgressBarChartProps = {
+  left: number;
+  right: number;
+  width: number;
+  currencySymbolNeeded?: boolean;
+};
+
+const ProgressBarChart = ({
+  left,
+  right,
+  width,
+  currencySymbolNeeded,
+}: ProgressBarChartProps) => {
+  const symbol = useStoreSelector(({ app }) => {
     const currency = app.currency.toLowerCase();
     return availableCurrencies[currency].symbol;
   });

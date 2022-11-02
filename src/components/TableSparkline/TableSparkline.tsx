@@ -1,9 +1,12 @@
 import React from "react";
-// eslint-disable-next-line no-unused-vars
-import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
-const TableSparkline = ({ priceData, width }) => {
+type TableSparklineProps = {
+  priceData: number[];
+  width: number;
+};
+
+const TableSparkline = ({ priceData, width }: TableSparklineProps) => {
   return (
     <Line
       width={width}
@@ -23,7 +26,7 @@ const TableSparkline = ({ priceData, width }) => {
         },
       }}
       data={{
-        labels: priceData.map((el, i) => i),
+        labels: priceData.map((_, i) => i),
         datasets: [
           {
             borderColor:

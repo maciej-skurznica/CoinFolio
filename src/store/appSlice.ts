@@ -1,13 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// local imports
+import { AppState } from "types/AppState";
 
 export const appSlice = createSlice({
   name: "app",
   initialState: {
     currency: "USD",
     darkThemeOn: false,
-  },
+  } as AppState,
   reducers: {
-    toggleCurrency: (state, action) => {
+    toggleCurrency: (state, action: PayloadAction<string>) => {
       state.currency = action.payload;
     },
     toggleTheme: (state) => {

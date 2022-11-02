@@ -1,13 +1,14 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ChartsBottom, BitcoinChart, VolumeChart } from "components";
+import React, { useEffect } from "react";
+// local imports
+import { BitcoinChart, ChartsBottom, VolumeChart } from "components";
 import { fetchCharts } from "store/chartsSlice";
+import { useStoreDispatch, useStoreSelector } from "store/hooks";
 import { Container, Top } from "./Charts.styles";
 
 const Charts = () => {
-  const currentCurrency = useSelector(({ app }) => app.currency);
-  const activeButton = useSelector(({ charts }) => charts.activeButton);
-  const dispatch = useDispatch();
+  const currentCurrency = useStoreSelector(({ app }) => app.currency);
+  const activeButton = useStoreSelector(({ charts }) => charts.activeButton);
+  const dispatch = useStoreDispatch();
 
   useEffect(() => {
     const promise = dispatch(fetchCharts("bitcoin"));
