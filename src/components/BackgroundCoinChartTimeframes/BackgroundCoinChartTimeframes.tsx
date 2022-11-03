@@ -1,11 +1,13 @@
-import { useSelector, useDispatch } from "react-redux";
-import { handleTimeFrameClick } from "store/chartsSlice";
+import React from "react";
+// local imports
 import { timeFrames } from "assets/data";
-import { Container, Button } from "./BackgroundCoinChartTimeframes.styles";
+import { handleTimeFrameClick } from "store/chartsSlice";
+import { useStoreDispatch, useStoreSelector } from "store/hooks";
+import { Button, Container } from "./BackgroundCoinChartTimeframes.styles";
 
 const BackgroundCoinChartTimeframes = () => {
-  const activeButton = useSelector(({ charts }) => charts.activeButton);
-  const dispatch = useDispatch();
+  const activeButton = useStoreSelector(({ charts }) => charts.activeButton);
+  const dispatch = useStoreDispatch();
 
   return (
     <Container>

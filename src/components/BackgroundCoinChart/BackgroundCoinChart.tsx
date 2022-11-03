@@ -1,23 +1,25 @@
+import "chart.js/auto"; // important part
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-// eslint-disable-next-line no-unused-vars
-import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
-import { BackgroundCoinChartTimeframes } from "components";
-import { fetchCharts } from "store/chartsSlice";
+import { useParams } from "react-router-dom";
+// local imports
 import { timeFrames } from "assets/data";
 import loading from "assets/images/loading.svg";
+import { BackgroundCoinChartTimeframes } from "components";
+import { fetchCharts } from "store/chartsSlice";
+import { useStoreDispatch, useStoreSelector } from "store/hooks";
 import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
 import { ChartContainer, LoadingDiv } from "./BackgroundCoinChart.styles";
 
 const BackgroundCoinChart = () => {
-  const { coin } = useParams();
-  const currentCurrency = useSelector(({ app }) => app.currency);
-  const activeButton = useSelector(({ charts }) => charts.activeButton);
-  const coinPrices = useSelector(({ charts }) => charts.prices);
-  const isLoading = useSelector(({ charts }) => charts.isLoading);
-  const dispatch = useDispatch();
+  const { coin } = useParams<{ coin: string }>();
+  const currentCurrency = useStoreSelector(({ app }) => app.currency);
+  const {
+    activeButton,
+    prices: coinPrices,
+    isLoading,
+  } = useStoreSelector(({ charts }) => charts);
+  const dispatch = useStoreDispatch();
 
   useEffect(() => {
     const promise = dispatch(fetchCharts(coin));
