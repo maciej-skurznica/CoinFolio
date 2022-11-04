@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+// local imports
+import { availableCurrencies as ac } from "assets/data";
 import { useOutsideClick } from "hooks";
 import { toggleCurrency } from "store/appSlice";
-import { availableCurrencies as ac } from "assets/data";
+import { useStoreSelector } from "store/hooks";
 import {
   Container,
-  Ticker,
   CurrencyDropdown,
-  InnerDiv,
   InnerCurrency,
+  InnerDiv,
+  Ticker,
 } from "./Currency.styles";
 
 const Currency = () => {
   const [hasDropdown, setHasDropdown] = useState(false);
 
-  const currency = useSelector(({ app }) => app.currency);
+  const currency = useStoreSelector(({ app }) => app.currency);
   const dispatch = useDispatch();
 
   const handleClick = () => setHasDropdown(!hasDropdown);

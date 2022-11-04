@@ -1,7 +1,14 @@
-import styled, { createGlobalStyle } from "styled-components";
 import { ToastContainer } from "react-toastify";
+import styled, { createGlobalStyle } from "styled-components";
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<{
+  theme: {
+    main: string;
+    secondary: string;
+    contrast: string;
+    lighterContrast: string;
+  };
+}>`
   body {
     margin: 0;
     background: ${(props) => props.theme.main};

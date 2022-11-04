@@ -1,13 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
 import { MoonIcon } from "@heroicons/react/20/solid";
 import { SunIcon } from "@heroicons/react/24/outline";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
+// local imports
 import { Currency } from "components";
 import { toggleTheme } from "store/appSlice";
+import { useStoreSelector } from "store/hooks";
 import { Container, Divider, StyledLink, Theme } from "./RightTop.styles";
-import { useCallback } from "react";
 
 const RightTop = () => {
-  const darkThemeOn = useSelector(({ app }) => app.darkThemeOn);
+  const darkThemeOn = useStoreSelector(({ app }) => app.darkThemeOn);
   const dispatch = useDispatch();
   const onClickCallback = useCallback(
     () => dispatch(toggleTheme()),

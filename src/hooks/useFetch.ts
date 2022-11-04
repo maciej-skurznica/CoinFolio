@@ -1,8 +1,13 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const useFetch = (url, toastId, arrayOfVarsToWatch, initialDataValue = null) => {
+const useFetch = (
+  url: string,
+  toastId: string,
+  arrayOfVarsToWatch: any[],
+  initialDataValue: any = null
+) => {
   const [data, setData] = useState(initialDataValue);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);

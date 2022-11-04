@@ -1,12 +1,13 @@
-import { Navbar } from "components";
-import { Coin, Home, NotFound, Portfolio } from "pages";
 import React from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useStoreSelector } from "store/hooks";
 import { ThemeProvider } from "styled-components";
+// local imports
+import { Navbar } from "components";
+import { Coin, Home, NotFound, Portfolio } from "pages";
+import { useStoreSelector } from "store/hooks";
 import { GlobalStyle, StyledToastContainer } from "styles/global";
 import { darkTheme, lightTheme } from "styles/themes";
 
@@ -23,7 +24,7 @@ const App = () => {
           <GlobalStyle />
           <Navbar />
           <Switch>
-            <Route exact path={["/", "/coins"]} render={(props) => <Home {...props} />} />
+            <Route exact path={["/", "/coins"]} component={Home} />
             <Route exact path="/coins/:coin" component={Coin} />
             <Route exact path="/portfolio" component={Portfolio} />
             <Route path="*" component={NotFound} />

@@ -1,8 +1,10 @@
+import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+// local imports
 import { Container, Div } from "./BottomSkeleton.styles";
 
-const BottomSkeleton = (props) => {
+const BottomSkeleton = () => {
   return (
     <Container>
       <Div w={7}>

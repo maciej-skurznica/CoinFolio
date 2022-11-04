@@ -8,7 +8,7 @@ export const Container = styled.div`
   background-color: #d7c0ae;
 `;
 
-export const Fill = styled.div`
+export const Fill = styled.div<{ value: number }>`
   height: 0.5em;
   border-radius: 3px;
   background-color: #967e76;
