@@ -4,12 +4,11 @@ import { Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 // local imports
 import { timeFrames } from "assets/data";
-import loading from "assets/images/loading.svg";
-import { BackgroundCoinChartTimeframes } from "components";
+import { AnimatedLoader, BackgroundCoinChartTimeframes } from "components";
 import { fetchCharts } from "store/chartsSlice";
 import { useStoreDispatch, useStoreSelector } from "store/hooks";
 import { tooltipLabels, tooltipTitles } from "utils/chartsCallbacks";
-import { ChartContainer, LoadingDiv } from "./BackgroundCoinChart.styles";
+import { ChartContainer } from "./BackgroundCoinChart.styles";
 
 const BackgroundCoinChart = () => {
   const { coin } = useParams<{ coin: string }>();
@@ -37,11 +36,7 @@ const BackgroundCoinChart = () => {
     <>
       <BackgroundCoinChartTimeframes />
       <ChartContainer>
-        {isLoading && (
-          <LoadingDiv>
-            <img src={loading} alt="loading" />
-          </LoadingDiv>
-        )}
+        {isLoading && <AnimatedLoader />}
         {hasData && (
           <Line
             data={{

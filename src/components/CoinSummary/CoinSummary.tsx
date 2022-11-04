@@ -1,11 +1,13 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from "react";
 import { BsDot } from "react-icons/bs";
 import { FaLink } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+// local imports
 import { ValueWithCurrencySymbol } from "components";
 import { useGetCoinDataQuery } from "store/coinGeckoApiSlice";
-import { displayBigNumber, roundToTwoDecimal } from "utils";
+import { useStoreSelector } from "store/hooks";
 import { Div } from "ui";
+import { displayBigNumber, roundToTwoDecimal } from "utils";
 import {
   AllTimeLowHigh,
   CoinName,
@@ -27,9 +29,9 @@ import {
 } from "./CoinSummary.styles";
 
 const CoinSummary = () => {
-  const { coin } = useParams();
+  const { coin } = useParams<{ coin: string }>();
   const { data: coinData } = useGetCoinDataQuery(coin);
-  const lowerCaseCurrency = useSelector(({ app }) => app.currency.toLowerCase());
+  const lowerCaseCurrency = useStoreSelector(({ app }) => app.currency.toLowerCase());
 
   const {
     image: { large },

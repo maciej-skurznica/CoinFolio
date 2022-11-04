@@ -12,6 +12,7 @@
     "@types/node": "^18.11.7",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/react-router": "^5.1.19",
     "axios": "^0.27.2",
     "chart.js": "^3.9.1",
     "react": "^18.2.0",
@@ -55,6 +56,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "reactcci": "^1.11.0"

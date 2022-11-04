@@ -17,6 +17,7 @@ export const SumLeft = styled.div`
   flex-direction: column;
   flex-basis: content;
   row-gap: 15px;
+  max-width: 50%;
 `;
 
 export const IconTile = styled.div`
@@ -30,7 +31,7 @@ export const IconTile = styled.div`
   border-radius: 5px;
 `;
 
-export const Icon = styled.div`
+export const Icon = styled.div<{ image: string }>`
   background-size: cover;
   background-position: center;
   height: 2.2em;
@@ -41,7 +42,6 @@ export const Icon = styled.div`
 export const CoinName = styled.div`
   font-size: 15px;
   margin: 5px 15px 0;
-  width: 50px;
 `;
 
 export const WebsiteTile = styled(Div)`
@@ -55,11 +55,11 @@ export const LinkIcon = styled(Div)`
   height: 12px;
   width: 12px;
   margin: 0 15px;
+  cursor: pointer;
 `;
 
 export const WebsiteLink = styled.a`
-  margin: 0 15px;
-  width: 150px;
+  margin-right: 15px;
 `;
 
 export const SumMiddle = styled(Div)`
@@ -74,7 +74,7 @@ export const PriceDiv = styled(Div)`
   font-weight: bold;
 `;
 
-export const PriceChange = styled(Div)`
+export const PriceChange = styled(Div)<{ value: number }>`
   color: ${(props) => (props.value < 0 ? "rgb(209,78,77)" : "rgb(42,141,120)")};
   font-weight: normal;
   font-size: 14px;

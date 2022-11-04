@@ -1,6 +1,8 @@
+import React from "react";
 import { CgArrowsExchangeAlt } from "react-icons/cg";
+// local imports
 import { Div } from "ui";
-import { Container, ConvertIcon, Left, InputOnRight } from "./CoinConverterLoader.styles";
+import { Container, ConvertIcon, InputOnRight, Left } from "./CoinConverterLoader.styles";
 
 const CoinConverterLoader = () => {
   return (

@@ -1,17 +1,17 @@
+import { Navbar } from "components";
+import { Coin, Home, NotFound, Portfolio } from "pages";
 import React from "react";
+import { SkeletonTheme } from "react-loading-skeleton";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { SkeletonTheme } from "react-loading-skeleton";
-import { Home, Coin, Portfolio, NotFound } from "pages";
-import { Navbar } from "components";
-import { GlobalStyle, StyledToastContainer } from "styles/global";
+import { useStoreSelector } from "store/hooks";
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "styles/themes";
+import { GlobalStyle, StyledToastContainer } from "styles/global";
+import { darkTheme, lightTheme } from "styles/themes";
 
 const App = () => {
-  const darkThemeOn = useSelector(({ app }) => app.darkThemeOn);
+  const darkThemeOn = useStoreSelector(({ app }) => app.darkThemeOn);
 
   return (
     <ThemeProvider theme={darkThemeOn ? darkTheme : lightTheme}>

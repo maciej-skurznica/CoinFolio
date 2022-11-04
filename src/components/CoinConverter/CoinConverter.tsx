@@ -1,27 +1,21 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { CgArrowsExchangeAlt } from "react-icons/cg";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+// local imports
+import { handleChange, runConverter } from "store/coinConverterSlice";
 import { useGetCoinDataQuery } from "store/coinGeckoApiSlice";
-import {
-  handleChange,
-  runConverter,
-  selectCryptoPlaceholder,
-  selectCryptoValue,
-  selectFiatPlaceholder,
-  selectFiatValue,
-} from "store/coinConverterSlice";
+import { useStoreSelector } from "store/hooks";
 import { Div } from "ui";
-import { Container, ConvertIcon, Left, InputOnRight } from "./CoinConverter.styles";
+import { Container, ConvertIcon, InputOnRight, Left } from "./CoinConverter.styles";
 
 const CoinConverter = () => {
-  const currentCurrency = useSelector(({ app }) => app.currency);
-  const fiatValue = useSelector(selectFiatValue);
-  const fiatPlaceholder = useSelector(selectFiatPlaceholder);
-  const cryptoValue = useSelector(selectCryptoValue);
-  const cryptoPlaceholder = useSelector(selectCryptoPlaceholder);
+  const currentCurrency = useStoreSelector(({ app }) => app.currency);
+  const { fiatValue, fiatPlaceholder, cryptoValue, cryptoPlaceholder } = useStoreSelector(
+    ({ coinConverter }) => coinConverter
+  );
   const dispatch = useDispatch();
-  const { coin } = useParams();
+  const { coin } = useParams<{ coin: string }>();
   const { data: coinData } = useGetCoinDataQuery(coin);
 
   const cryptoPrice = coinData.market_data.current_price[currentCurrency.toLowerCase()];

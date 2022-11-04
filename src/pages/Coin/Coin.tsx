@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+// local imports
 import {
   BackgroundCoinChart,
   CoinConverter,
@@ -14,16 +15,21 @@ import { useGetCoinDataQuery } from "store/coinGeckoApiSlice";
 import { Container, Description, InnerContainer } from "./Coin.styles";
 
 const Coin = () => {
-  const { coin } = useParams();
+  const { coin } = useParams<{ coin: string }>();
   const { data: coinData, isLoading, isError, error } = useGetCoinDataQuery(coin);
   const history = useHistory();
 
   useEffect(() => {
     if (isError) {
-      toast.error(
-        `Failed to load navbar data...\n${error?.data?.error || error?.error}`,
-        { toastId: "navbar" }
-      );
+      let errorMessage;
+      if ("status" in error) {
+        errorMessage = "error" in error ? error.error : JSON.stringify(error.data);
+      } else {
+        errorMessage = error.message;
+      }
+      toast.error(`Failed to load coin data...\n${errorMessage}}`, {
+        toastId: "coin",
+      });
       setTimeout(() => {
         history.push("/coins");
       }, 6000);
@@ -41,12 +47,12 @@ const Coin = () => {
     <Container>
       <InnerContainer>
         <Description>Summary</Description>
-        {haveData ? <CoinSummary coinData={coinData} /> : <CoinSummarySkeleton />}
+        {haveData ? <CoinSummary /> : <CoinSummarySkeleton />}
         <Description>Description</Description>
         {haveData ? (
           <>
-            <CoinDescription coinData={coinData} />
-            <CoinConverter coinData={coinData} />
+            <CoinDescription />
+            <CoinConverter />
           </>
         ) : (
           <>
@@ -55,7 +61,7 @@ const Coin = () => {
           </>
         )}
       </InnerContainer>
-      {haveData && <BackgroundCoinChart coinData={coinData} />}
+      {haveData && <BackgroundCoinChart />}
     </Container>
   );
 };

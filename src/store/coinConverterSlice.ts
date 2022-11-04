@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+// local imports
 import { displayBigNumber } from "utils";
+
+type CoinConverterState = {
+  fiatValue: string;
+  fiatPlaceholder: string;
+  cryptoValue: string;
+  cryptoPlaceholder: string;
+};
 
 export const coinConverterSlice = createSlice({
   name: "coinConverter",
@@ -8,13 +16,18 @@ export const coinConverterSlice = createSlice({
     fiatPlaceholder: "Type value",
     cryptoValue: "",
     cryptoPlaceholder: "Type value",
-  },
+  } as CoinConverterState,
   reducers: {
     runConverter: (state, { payload: cryptoPrice }) => {
       if (state.fiatValue.length) {
-        state.cryptoPlaceholder = displayBigNumber(state.fiatValue / cryptoPrice, 8);
+        state.cryptoPlaceholder = displayBigNumber(
+          parseFloat(state.fiatValue) / cryptoPrice,
+          8
+        );
       } else {
-        state.fiatPlaceholder = displayBigNumber(state.cryptoValue * cryptoPrice);
+        state.fiatPlaceholder = displayBigNumber(
+          parseFloat(state.cryptoValue) * cryptoPrice
+        );
       }
     },
     handleChange: (state, { payload: { value, active } }) => {
@@ -33,8 +46,3 @@ export const coinConverterSlice = createSlice({
 
 export const { runConverter, handleChange } = coinConverterSlice.actions;
 export default coinConverterSlice.reducer;
-
-export const selectFiatValue = (state) => state.coinConverter.fiatValue;
-export const selectFiatPlaceholder = (state) => state.coinConverter.fiatPlaceholder;
-export const selectCryptoValue = (state) => state.coinConverter.cryptoValue;
-export const selectCryptoPlaceholder = (state) => state.coinConverter.cryptoPlaceholder;

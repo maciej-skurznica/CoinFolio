@@ -1,3 +1,5 @@
+import React from "react";
+// local imports
 import { Container, StyledLink } from "./NotFound.styles";
 
 const NotFound = () => {
