@@ -12,34 +12,37 @@ export const Container = styled(Div)`
 
 export const Title = styled.h2`
   color: ${({ theme }) => theme.contrast};
-  font-size: 28px;
+  font-size: 1.75em;
   font-weight: 600;
   margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
 `;
 
 export const Message = styled.p`
   color: ${({ theme }) => theme.lighterContrast};
-  font-size: 16px;
+  font-size: 1em;
   text-align: center;
   max-width: 400px;
   margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
 `;
 
 export const AddButton = styled.button`
-  background: #6374f3;
+  background-color: #e6007e;
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1em;
   font-weight: 500;
+  font-family: Helvetica, Arial, sans-serif;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 10px;
+  margin-top: 0.625rem;
 
   &:hover {
-    background: #5263e2;
-    transform: translateY(-2px);
+    background-color: #c2006a;
+    transform: translateY(-1px);
   }
 
   &:active {
