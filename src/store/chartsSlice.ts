@@ -13,6 +13,39 @@ type ReturnTypes = {
   currentCurrency: string;
 };
 
+// Helper function for retrying with exponential backoff
+const retryWithBackoff = async <T,>(
+  fn: () => Promise<T>,
+  maxRetries = 3,
+  baseDelay = 1000
+): Promise<T> => {
+  let lastError: Error;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error: unknown) {
+      lastError = error as Error;
+
+      // Don't retry if request was canceled
+      if (lastError.name === "CanceledError" || lastError.name === "AbortError") {
+        throw lastError;
+      }
+
+      // Don't retry on last attempt
+      if (attempt === maxRetries) {
+        throw lastError;
+      }
+
+      // Wait with exponential backoff
+      const delay = baseDelay * Math.pow(2, attempt);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+
+  throw new Error(lastError!.message);
+};
+
 export const fetchCharts = createAsyncThunk(
   "charts/fetchCharts",
   async (coin: string, { getState, signal }) => {
@@ -22,9 +55,11 @@ export const fetchCharts = createAsyncThunk(
     const { days, interval } = timeFrames[activeButton];
 
     try {
-      const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
-        { signal }
+      const { data } = await retryWithBackoff(() =>
+        axios(
+          `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
+          { signal }
+        )
       );
       return { data, currentCurrency } as ReturnTypes;
     } catch (error: unknown) {

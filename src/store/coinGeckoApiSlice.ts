@@ -1,8 +1,16 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+
+// Create base query with retry logic
+const baseQuery = retry(
+  fetchBaseQuery({ baseUrl: "https://api.coingecko.com/api/v3/" }),
+  {
+    maxRetries: 3,
+  }
+);
 
 const coinGeckoApi = createApi({
   reducerPath: "coinGeckoApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://api.coingecko.com/api/v3/" }),
+  baseQuery,
   endpoints: (builder) => ({
     getGlobalData: builder.query({
       query: () => "global",
