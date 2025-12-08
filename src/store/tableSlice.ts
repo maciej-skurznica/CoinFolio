@@ -45,11 +45,18 @@ export const fetchTableData = createAsyncThunk(
     const currentCurrency = state.app.currency;
     const page = state.table.page;
 
+    // Prepare headers with API key if available
+    const headers: Record<string, string> = {};
+    const apiKey = process.env.REACT_APP_COINGECKO_API_KEY;
+    if (apiKey && apiKey !== "your_api_key_here") {
+      headers["x-cg-demo-api-key"] = apiKey;
+    }
+
     try {
       const { data } = await retryWithBackoff(() =>
         axios(
           `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currentCurrency}&order=market_cap_desc&per_page=50&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
-          { signal }
+          { signal, headers }
         )
       );
       return data;

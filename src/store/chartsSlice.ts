@@ -54,11 +54,18 @@ export const fetchCharts = createAsyncThunk(
     const activeButton = state.charts.activeButton;
     const { days, interval } = timeFrames[activeButton];
 
+    // Prepare headers with API key if available
+    const headers: Record<string, string> = {};
+    const apiKey = process.env.REACT_APP_COINGECKO_API_KEY;
+    if (apiKey && apiKey !== "your_api_key_here") {
+      headers["x-cg-demo-api-key"] = apiKey;
+    }
+
     try {
       const { data } = await retryWithBackoff(() =>
         axios(
           `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=${currentCurrency}&days=${days}&interval=${interval}`,
-          { signal }
+          { signal, headers }
         )
       );
       return { data, currentCurrency } as ReturnTypes;
