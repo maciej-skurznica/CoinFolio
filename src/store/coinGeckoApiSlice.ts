@@ -1,8 +1,25 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+
+// Create base query with retry logic and API key support
+const baseQuery = retry(
+  fetchBaseQuery({
+    baseUrl: "https://api.coingecko.com/api/v3/",
+    prepareHeaders: (headers) => {
+      const apiKey = process.env.REACT_APP_COINGECKO_API_KEY;
+      if (apiKey && apiKey !== "your_api_key_here") {
+        headers.set("x-cg-demo-api-key", apiKey);
+      }
+      return headers;
+    },
+  }),
+  {
+    maxRetries: 3,
+  }
+);
 
 const coinGeckoApi = createApi({
   reducerPath: "coinGeckoApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://api.coingecko.com/api/v3/" }),
+  baseQuery,
   endpoints: (builder) => ({
     getGlobalData: builder.query({
       query: () => "global",
