@@ -15,6 +15,7 @@ import app from "store/appSlice";
 import charts from "store/chartsSlice";
 import coinConverter from "store/coinConverterSlice";
 import coinGeckoApi from "store/coinGeckoApiSlice";
+import portfolio from "store/portfolioSlice";
 import searchBar from "store/searchBarSlice";
 import table from "store/tableSlice";
 
@@ -28,7 +29,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["app"],
+  whitelist: ["app", "portfolio"],
   blacklist: ["charts"],
 };
 
@@ -39,6 +40,7 @@ const reducer = combineReducers({
   table,
   searchBar,
   coinConverter,
+  portfolio,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
