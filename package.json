@@ -63,6 +63,7 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
+    "dotenv": "^17.2.3",
     "reactcci": "^1.11.0"
   }
 }
