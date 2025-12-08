@@ -45,7 +45,7 @@ const TableCoin = ({ data }: TableCoinProps) => {
         <Value width={150} align="left">
           <Icon style={{ backgroundImage: `url(${image})` }} />
           <div>
-            <Name>{name}</Name>
+            <Name title={name}>{name}</Name>
             {symbol.toUpperCase()}
           </div>
         </Value>

@@ -50,6 +50,10 @@ export const Icon = styled.div`
 export const Name = styled.div`
   color: ${({ theme }) => theme.contrast};
   margin-right: 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
 `;
 
 export const CurrencySymbol = styled.div`
