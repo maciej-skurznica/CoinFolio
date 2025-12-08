@@ -3,6 +3,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaLink } from "react-icons/fa";
 import { FiCopy } from "react-icons/fi";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 // local imports
 import { useGetCoinDataQuery } from "store/coinGeckoApiSlice";
 import { Description, IconDiv, Links, LinkTile } from "./CoinDescription.styles";
@@ -20,6 +21,13 @@ const CoinDescription = () => {
     window.open(`${link}`);
   };
 
+  const handleCopy = () => {
+    toast.success("Link copied to clipboard!", {
+      position: "bottom-right",
+      autoClose: 2000,
+    });
+  };
+
   return (
     <>
       <Description>{text.replace(/(<([^>]+)>)/gi, "")}</Description>
@@ -32,7 +40,7 @@ const CoinDescription = () => {
                   <FaLink />
                 </IconDiv>
                 {link}
-                <CopyToClipboard text={link}>
+                <CopyToClipboard text={link} onCopy={handleCopy}>
                   <IconDiv>
                     <FiCopy />
                   </IconDiv>
